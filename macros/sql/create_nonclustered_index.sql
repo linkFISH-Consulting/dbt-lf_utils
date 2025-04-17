@@ -1,5 +1,5 @@
 {% macro create_nonclustered_index(columns, includes) %}
-    {{ return(adapter.dispatch('create_nonclustered_index')(columns, includes)) }}
+    {{ return(adapter.dispatch('create_nonclustered_index', 'lf_utils')(columns, includes)) }}
 {% endmacro %}
 
 {%- macro default__create_nonclustered_index(columns, includes) %}

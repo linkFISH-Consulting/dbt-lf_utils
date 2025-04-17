@@ -1,8 +1,5 @@
 {% macro eomonth(from_date_or_timestamp) %}
-  {{ return(adapter.dispatch('eomonth')(from_date_or_timestamp)) }}
-{% endmacro %}
-
-{% macro default__eomonth(from_date_or_timestamp) %}
+  {{ return(adapter.dispatch('eomonth', 'lf_utils')(from_date_or_timestamp)) }}
 {% endmacro %}
 
 {% macro oracle__eomonth(from_date_or_timestamp) %}

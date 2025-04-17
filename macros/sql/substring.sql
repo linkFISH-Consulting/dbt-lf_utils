@@ -1,5 +1,5 @@
 {% macro substring(fieldName, startPosition, len) %}
-    {{ return(adapter.dispatch('substring')(fieldName, startPosition, len)) }}
+    {{ return(adapter.dispatch('substring', 'lf_utils')(fieldName, startPosition, len)) }}
 {% endmacro %}
 
 {%- macro default__substring(fieldName, startPosition, len) %}

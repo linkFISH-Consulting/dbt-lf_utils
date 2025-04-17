@@ -1,5 +1,5 @@
 {% macro lpad(fieldName, len, padding = '0') %}
-    {{ return(adapter.dispatch('lpad')(fieldName, len, padding)) }}
+    {{ return(adapter.dispatch('lpad', 'lf_utils')(fieldName, len, padding)) }}
 {% endmacro %}
 
 {%- macro default__lpad(fieldName, len, padding) %}

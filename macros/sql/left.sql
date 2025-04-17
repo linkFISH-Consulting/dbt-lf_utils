@@ -1,9 +1,6 @@
 {% macro left(fieldName, len) %}
-    {{ return(adapter.dispatch('left')(fieldName, len)) }}
+    {{ return(adapter.dispatch('left', 'lf_utils')(fieldName, len)) }}
 {% endmacro %}
-
-{%- macro default__left(fieldName, len) %}
-{%- endmacro %}
 
 {%- macro duckdb__left(fieldName, len) %}
     left({{ fieldName }}, {{len}})

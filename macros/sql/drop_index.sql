@@ -1,5 +1,5 @@
 {% macro drop_index(columns) %}
-    {{ return(adapter.dispatch('drop_index')(columns)) }}
+    {{ return(adapter.dispatch('drop_index', 'lf_utils')(columns)) }}
 {% endmacro %}
 
 {%- macro default__drop_index(columns) %}

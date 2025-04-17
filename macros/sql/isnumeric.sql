@@ -1,5 +1,5 @@
 {% macro isnumeric(str) %}
-    {{ return(adapter.dispatch('isnumeric')(str)) }}
+    {{ return(adapter.dispatch('isnumeric', 'lf_utils')(str)) }}
 {% endmacro %}
 
 {%- macro default__isnumeric(fieldName) %}

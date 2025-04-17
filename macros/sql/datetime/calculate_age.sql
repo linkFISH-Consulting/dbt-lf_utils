@@ -5,7 +5,7 @@ Last Modified: 2025-04-17
 * --------------------------------------------------------------------------- */
 
 {% macro calculate_age(date_of_birth, date_column) %}
-    {{ return(adapter.dispatch('calculate_age')(date_of_birth, date_column)) }}
+    {{ return(adapter.dispatch('calculate_age', 'lf_utils')(date_of_birth, date_column)) }}
 {% endmacro %}
 
 {%- macro default__calculate_age(date_of_birth, date_column) %}

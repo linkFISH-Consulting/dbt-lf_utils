@@ -9,12 +9,8 @@ len argument strips from the right, e.g. format 112 with len 4 gives you yyyy
 */
 
 {% macro date_to_string(dateColumn, format = 112, len = 10) %}
-    {{ return(adapter.dispatch('date_to_string')(dateColumn, format, len)) }}
+    {{ return(adapter.dispatch('date_to_string', 'lf_utils')(dateColumn, format, len)) }}
 {% endmacro %}
-
-{%- macro default__date_to_string(dateColumn, format, len) %}
-''
-{%- endmacro %}
 
 {%- macro duckdb__date_to_string(dateColumn, format, len) %}
     {%- if format == 103 %}
