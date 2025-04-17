@@ -8,7 +8,7 @@ Arguments:
 */
 {% macro dateadd(datepart, number, from_date_or_timestamp) %}
 
-    {{ return(adapter.dispatch("dateadd")(datepart, number, from_date_or_timestamp)) }}
+    {{ return(adapter.dispatch('dateadd', 'lf_utils')(datepart, number, from_date_or_timestamp)) }}
 
 {% endmacro %}
 
@@ -29,6 +29,13 @@ Arguments:
 /* --------------------------------- duckdb --------------------------------- */
 
 {% macro duckdb__dateadd(datepart, number, from_date_or_timestamp) %}
+    {% if datepart == "d" %}
+        {% set datepart = "day" %}
+    {% elif datepart == "m" %}
+        {% set datepart = "month" %}
+    {% elif datepart == "y" %}
+        {% set datepart = "year" %}
+    {% endif %}
 
     {# duckdb needs () around number - otherwise negative shifts dont work! #}
     date_add({{ from_date_or_timestamp }}, interval ({{ number }}) {{ datepart }})

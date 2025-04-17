@@ -2,6 +2,10 @@
     {{ return(adapter.dispatch('left', 'lf_utils')(fieldName, len)) }}
 {% endmacro %}
 
+{%- macro default__left(fieldName, len) %}
+    left({{ fieldName }}, {{ len }})
+{%- endmacro %}
+
 {%- macro duckdb__left(fieldName, len) %}
     left({{ fieldName }}, {{len}})
 {%- endmacro %}
@@ -12,4 +16,8 @@
 
 {%- macro sqlserver__left(fieldName, len) %}
     LEFT({{ fieldName }}, {{ len }})
+{%- endmacro %}
+
+{%- macro postgres__left(fieldName, len) %}
+    left({{ fieldName }},  {{ len }})
 {%- endmacro %}

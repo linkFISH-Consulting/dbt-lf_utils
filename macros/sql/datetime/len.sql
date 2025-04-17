@@ -2,6 +2,10 @@
     {{ adapter.dispatch('len', 'lf_utils') (fieldName) }}
 {%- endmacro %}
 
+{% macro duckdb__len(fieldName) -%}
+    LENGTH({{ fieldName }})
+{%- endmacro %}
+
 {% macro default__len(fieldName) -%}
     LENGTH({{ fieldName }})
 {%- endmacro %}

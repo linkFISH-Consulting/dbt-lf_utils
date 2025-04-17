@@ -3,7 +3,11 @@
 {% endmacro %}
 
 {%- macro default__isnumeric(fieldName) %}
-    ISNUMERIC({{fieldName }})
+    ISNUMERIC({{ fieldName }})
+{%- endmacro %}
+
+{%- macro duckdb__isnumeric(fieldName) %}
+    ( try_cast({{ fieldName }} as double) is not null )
 {%- endmacro %}
 
 {%- macro oracle__isnumeric(fieldName) %}
@@ -11,9 +15,9 @@
 {%- endmacro %}
 
 {%- macro sqlserver__isnumeric(fieldName) %}
-    ISNUMERIC({{fieldName }})
+    ISNUMERIC({{ fieldName }})
 {%- endmacro %}
 
 {%- macro postgres__isnumeric(fieldName) %}
-    ISNUMERIC({{fieldName }})
+    ISNUMERIC({{ fieldName }})
 {%- endmacro %}

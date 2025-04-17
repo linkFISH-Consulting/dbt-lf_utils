@@ -6,6 +6,10 @@
     LPAD(CAST({{ fieldName }} AS varchar(255)), {{ len }}, '{{ padding }}')
 {%- endmacro %}
 
+{%- macro duckdb__lpad(fieldName, len, padding) %}
+    LPAD(CAST({{ fieldName }} AS varchar(255)), {{ len }}, '{{ padding }}')
+{%- endmacro %}
+
 {%- macro oracle__lpad(fieldName, len, padding) %}
     LPAD(CAST({{ fieldName }} AS varchar(255)), {{ len }}, '{{ padding }}')
 {%- endmacro %}
