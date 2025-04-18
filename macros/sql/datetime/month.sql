@@ -2,6 +2,10 @@
     {{ adapter.dispatch('month', 'lf_utils') (from_date_or_timestamp) }}
 {%- endmacro %}
 
+{% macro duckdb__month(from_date_or_timestamp) -%}
+    month({{ from_date_or_timestamp }})
+{%- endmacro %}
+
 {% macro oracle__month(from_date_or_timestamp) -%}
     extract(month FROM {{ from_date_or_timestamp }})
 {%- endmacro %}
