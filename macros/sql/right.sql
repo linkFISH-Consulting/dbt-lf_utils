@@ -1,9 +1,13 @@
 {% macro right(fieldName, len) %}
-    {{ return(adapter.dispatch('right')(fieldName, len)) }}
+    {{ return(adapter.dispatch('right', 'lf_utils')(fieldName, len)) }}
 {% endmacro %}
 
 {%- macro default__right(fieldName, len) %}
     right({{ fieldName }}, {{ len }})
+{%- endmacro %}
+
+{%- macro duckdb__right(fieldName, len) %}
+    right({{ fieldName }}, {{len}})
 {%- endmacro %}
 
 {%- macro oracle__right(fieldName, len) %}

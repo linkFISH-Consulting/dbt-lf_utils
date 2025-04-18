@@ -19,6 +19,8 @@ len argument strips from the right, e.g. format 112 with len 4 gives you yyyy
         SUBSTR(strftime({{dateColumn}}, '%d.%m.%Y'), 1, {{len}})
     {%- elif format == 112 %}
         SUBSTR(strftime({{dateColumn}}, '%Y%m%d'), 1, {{len}})
+    {%- elif format == 'MMMM yyyy' %}
+        strftime({{dateColumn}}, '%B %Y')
     {% endif %}
 {%- endmacro %}
 
@@ -33,7 +35,11 @@ len argument strips from the right, e.g. format 112 with len 4 gives you yyyy
 {%- endmacro %}
 
 {%- macro sqlserver__date_to_string(dateColumn, format, len) %}
-    CONVERT(varchar({{ len }}), {{ dateColumn }}, {{ format }})
+    {%- if format == 'MMMM yyyy' %}
+        FORMAT({{dateColumn}}, N'MMMM yyyy', 'de-DE')
+    {%- else %}
+        CONVERT(varchar({{ len }}), {{ dateColumn }}, {{ format }})
+    {% endif %}
 {%- endmacro %}
 
 {%- macro postgres__date_to_string(dateColumn, format, len) %}

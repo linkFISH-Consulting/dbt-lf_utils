@@ -3,6 +3,11 @@
 {% endmacro %}
 
 {%- macro default__substring(fieldName, startPosition, len) %}
+    substring({{ fieldName }}, {{ startPosition }}, {{ len }})
+{%- endmacro %}
+
+{% macro duckdb__substring(fieldName, startPosition, len) %}
+    substring({{ fieldName }}, {{ startPosition }}, {{ len }})
 {%- endmacro %}
 
 {%- macro oracle__substring(fieldName, startPosition, len) %}

@@ -3,36 +3,35 @@
 {% endmacro %}
 
 {%- macro duckdb__get_months(startYear) %}
-WITH mon AS (
+    WITH mon AS (
+        SELECT
+            DATE_TRUNC('month', DATE '{{ startYear }}-01-01') + INTERVAL (n) MONTH AS date_out
+        FROM UNNEST(GENERATE_SERIES(0, 1000)) AS t(n)
+    )
     SELECT
-        DATE_TRUNC('month', DATE '{{ startYear }}-01-01') + INTERVAL (n) MONTH AS date_out
-    FROM UNNEST(GENERATE_SERIES(0, 1000)) AS t(n)
-)
-SELECT
-    STRFTIME(date_out, '%Y') AS jahr,
-    STRFTIME(date_out, '%Y%m') AS jahrmonat,
-    STRFTIME(date_out, '%m') AS monat,
-    date_out AS monatErsterTag,
-    DATE_TRUNC('month', date_out) + INTERVAL '1 month' - INTERVAL '1 day' AS monatLetzterTag
-FROM mon
-WHERE date_out <= DATE_TRUNC('year', CURRENT_DATE) + INTERVAL '12 months' - INTERVAL '1 day'
+        STRFTIME(date_out, '%Y') AS jahr,
+        STRFTIME(date_out, '%Y%m') AS jahrmonat,
+        STRFTIME(date_out, '%m') AS monat,
+        date_out AS monatErsterTag,
+        DATE_TRUNC('month', date_out) + INTERVAL '1 month' - INTERVAL '1 day' AS monatLetzterTag
+    FROM mon
+    WHERE date_out <= DATE_TRUNC('year', CURRENT_DATE) + INTERVAL '12 months' - INTERVAL '1 day'
 {%- endmacro %}
 
 {%- macro oracle__get_months(startYear) %}
-WITH mon AS (
-    SELECT
-        DATE_TRUNC('month', DATE '{{ startYear }}-01-01') + INTERVAL (ROW_NUMBER() OVER()) - 1 MONTH AS date_out
-    FROM (SELECT range(12) AS rn) t
+WITH mon AS(
+SELECT ADD_MONTHS(TRUNC(TO_DATE('{{startYear}}-01-01', 'YYYY-MM-DD'), 'MON'), ROWNUM - 1) date_out
+FROM   DUAL
+CONNECT BY ADD_MONTHS(TRUNC(TO_DATE('{{startYear}}-01-01', 'YYYY-MM-DD'), 'MON'), ROWNUM - 1)
+    <= TRUNC(ADD_MONTHS (TRUNC (CURRENT_TIMESTAMP, 'YEAR'), 12) - 1, 'MON')
 )
 SELECT
-    STRFTIME(date_out, '%Y') AS jahr,
-    STRFTIME(date_out, '%Y%m') AS jahrmonat,
-    STRFTIME(date_out, '%m') AS monat,
-    date_out AS monatErsterTag,
-    DATE_TRUNC('month', date_out) + INTERVAL '1 month' - INTERVAL '1 day' AS monatLetzterTag
+  TO_CHAR(DATE_OUT, 'YYYY') AS jahr
+, TO_CHAR(DATE_OUT, 'YYYYMM') AS jahrmonat
+, TO_CHAR(DATE_OUT, 'MM') AS monat
+, mon.DATE_OUT AS monatErsterTag
+, LAST_DAY(mon.DATE_OUT) AS monatLetzterTag
 FROM mon
-WHERE date_out <= DATE_TRUNC('year', CURRENT_DATE) + INTERVAL '12 months' - INTERVAL '1 day'
-
 {%- endmacro %}
 
 {%- macro sqlserver__get_months(startYear) %}
@@ -86,5 +85,6 @@ WHERE date_out <= DATE_TRUNC('year', CURRENT_DATE) + INTERVAL '12 months' - INTE
     , EOMONTH(DATEFROMPARTS (generated_years.jahr, generated_months.Monat, 1)) AS monatLetzterTag
     FROM generated_months
     INNER JOIN generated_years ON generated_months.generated_no = generated_years.generated_no
+
 
 {%- endmacro %}
