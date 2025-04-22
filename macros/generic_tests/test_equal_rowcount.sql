@@ -1,4 +1,8 @@
 {% test equal_rowcount(model, compare_model, filter_condition=None) %}
+  {{ return(adapter.dispatch('equal_rowcount', 'lf_utils')(model, compare_model, filter_condition)) }}
+{% endtest %}
+
+{% test default__equal_rowcount(model, compare_model, filter_condition=None) %}
  
 WITH source_count AS (
     SELECT COUNT(*) AS cnt FROM {{ model }}
