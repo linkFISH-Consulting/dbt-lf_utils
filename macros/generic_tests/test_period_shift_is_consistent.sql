@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- *
 Author:        F. Paul Spitzner
 Created:       2025-01-20
-Last Modified: 2025-01-21
+Last Modified: 2025-04-22
 * --------------------------------------------------------------------------- *
 Überprüfe Verschiebungen von Werten, z.b. Wert im Vormonat
 
@@ -22,8 +22,11 @@ Argumente:
     Z.B. `-1` um zum Vormonat zu gehen
 * --------------------------------------------------------------------------- */
 
+{% test format_like(model, compare_model, filter_condition=None) %}
+  {{ return(adapter.dispatch('period_shift_is_consistent', 'lf_utils')(model, compare_model, filter_condition)) }}
+{% endtest %}
 
-{% test period_shift_is_consistent(
+{% test default__period_shift_is_consistent(
     model,
     column_name,
     column_to_compare_with = "wert_vormonat",
