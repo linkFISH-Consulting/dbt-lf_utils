@@ -22,8 +22,8 @@ Argumente:
     Z.B. `-1` um zum Vormonat zu gehen
 * --------------------------------------------------------------------------- */
 
-{% test format_like(model, compare_model, filter_condition=None) %}
-  {{ return(adapter.dispatch('period_shift_is_consistent', 'lf_utils')(model, compare_model, filter_condition)) }}
+{% test period_shift_is_consistent(model, column_name, column_to_compare_with, index_columns, date_column, shift_amount, shift_unit) %}
+  {{ return(adapter.dispatch('period_shift_is_consistent', 'lf_utils')(model, column_name, column_to_compare_with, index_columns, date_column, shift_amount, shift_unit)) }}
 {% endtest %}
 
 {% test default__period_shift_is_consistent(
