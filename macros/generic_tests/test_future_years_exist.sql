@@ -1,8 +1,4 @@
-{% test format_like(model, compare_model, filter_condition=None) %}
-  {{ return(adapter.dispatch('future_years_exist', 'lf_utils')(model, compare_model, filter_condition)) }}
-{% endtest %}
-
-{% test default__future_years_exist(model, column_name) %}
+{% test future_years_exist(model, column_name) %}
 
 WITH meet_condition AS (
   SELECT Jahr
