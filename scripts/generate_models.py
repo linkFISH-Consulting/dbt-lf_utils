@@ -15,6 +15,7 @@ pip install click
 # Last Modified: 2024-11-13
 
 import os
+import re
 import traceback
 from datetime import datetime
 
@@ -30,7 +31,12 @@ import yaml
     help="Prefix for the model file name. default: stg_{source_name}__",
 )
 @click.option("--overwrite", is_flag=True, help="Overwrite existing model files.")
-def main(yaml_file, prefix, overwrite):
+@click.option(
+    "--snake_case",
+    is_flag=True,
+    help="Convert model names to snake_case. Changes the names of generated files, but keeps the upstream data table name as specified.",
+)
+def main(yaml_file, prefix, overwrite, snake_case):
     with open(yaml_file, "r") as file:
         sources = yaml.safe_load(file)
 
@@ -48,6 +54,8 @@ def main(yaml_file, prefix, overwrite):
             try:
                 table_name = table.get("name")
                 file_name = f"{source_prefix}{table_name}.sql"
+                if snake_case:
+                    file_name = f"{source_prefix}{camel_to_snake(table_name)}.sql"
                 file_path = os.path.join(folder_name, file_name)
 
                 if os.path.exists(file_path):
@@ -68,11 +76,8 @@ def main(yaml_file, prefix, overwrite):
                 traceback.print_exc()
 
 
-model_template = \
-"""{header}
+model_template = """{header}
 
--- the alias becomes the name of the table in the database.
-{{{{ config(alias='{alias}') }}}}
 {description}
 
 with
@@ -92,7 +97,7 @@ select * from cte_final
 def model_content(source_name: str, table: dict) -> str:
     header = ""
     header += f"-- this file was auto-generated\n"
-    header += f"-- {os.path.realpath(__file__)}\n"
+    # header += f"-- {os.path.realpath(__file__)}\n"
     header += f"-- created on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
 
     table_name = table.get("name")
@@ -110,6 +115,28 @@ def model_content(source_name: str, table: dict) -> str:
         source_name=source_name,
         table_name=table_name,
     )
+
+
+def camel_to_snake(name):
+    """
+    Convert camelCase to snake_case.
+
+    Example
+    --------
+
+    ```python
+    df = df.rename(
+        {col: camel_to_snake(col) for col in df.collect_schema().names()}
+    )
+    ```
+
+    """
+    s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+    s2 = re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
+    res = re.sub("_+", "_", s2)
+    res = res.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue")
+
+    return res
 
 
 if __name__ == "__main__":
