@@ -6,12 +6,14 @@ on:
   pull_request:
     branches: [ main, ps_early_prep ]
 
+defaults:
+  run:
+    working-directory: /github/repo
+
 jobs:
   dbt-test:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /github/repo
+
     services:
       postgres:
         image: postgres:15
