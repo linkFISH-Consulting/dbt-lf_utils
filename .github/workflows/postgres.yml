@@ -59,7 +59,6 @@ jobs:
           set -a
           source .env
           set +a
-          printenv
           cwd
           ls ./
           dbt build --select _dummy_source
