@@ -59,7 +59,7 @@ jobs:
           set -a
           source .env
           set +a
-          cwd
+          pwd
           ls ./
           dbt build --select _dummy_source
           dbt test --vars '{"raise_on_error": false}'
