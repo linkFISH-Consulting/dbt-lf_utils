@@ -29,6 +29,7 @@ jobs:
           set -a
           source config/.env.cicd
           set +a
+          mkdir -p $(dirname $LF_UTILS__DUCKDB_DATAMART_PATH)
           export DBT_PROFILE=lf_utils_duckdb
           export DBT_TARGET=dev
           dbt build --select _dummy_source
