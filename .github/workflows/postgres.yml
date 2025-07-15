@@ -9,6 +9,9 @@ on:
 jobs:
   dbt-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: /github/repo
     services:
       postgres:
         image: postgres:15
@@ -58,5 +61,10 @@ jobs:
           set -a
           source .env
           set +a
+          printenv
+          cwd
+          ls /
+          ls /github || echo "github not found"
+          ls /github/repo || echo "repo not found"
           dbt build --select _dummy_source
           dbt test --vars '{"raise_on_error": false}'
