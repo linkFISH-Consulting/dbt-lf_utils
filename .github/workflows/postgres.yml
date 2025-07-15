@@ -30,8 +30,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dbt-postgres
-        run: pip install dbt-postgres
+      - name: Install dbt dependencies
+        run: |
+          pip install dbt-postgres
+          dbt deps
 
       - name: Wait for Postgres to be ready
         run: |
