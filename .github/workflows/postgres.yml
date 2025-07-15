@@ -1,0 +1,59 @@
+name: Postgres CI
+
+on:
+  push:
+    branches: [ main, ps_early_prep ]
+  pull_request:
+    branches: [ main, ps_early_prep ]
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt-postgres
+        run: pip install dbt-postgres
+
+      - name: Wait for Postgres to be ready
+        run: |
+          for i in {1..10}; do
+            if pg_isready -h localhost -p 5432 -U postgres; then
+              echo "Postgres is ready!"
+              exit 0
+            fi
+            echo "Waiting for Postgres..."
+            sleep 5
+          done
+          echo "Postgres did not become ready in time!" >&2
+          exit 1
+        env:
+          PGPASSWORD: postgres
+
+      - name: Run dbt test
+        run: "dbt build _dummy_source; dbt test --vars '{\"raise_on_error\": false}'"
+        env:
+          DBT_PROFILES_DIR: ${{ github.workspace }}/config/
+          DBT_PROJECT_DIR: ${{ github.workspace }}/
+          LF_UTILS__POSTGRES_HOST: localhost
+          LF_UTILS__POSTGRES_PORT: 5432
+          LF_UTILS__POSTGRES_DATABASE: test_db
+          LF_UTILS__POSTGRES_USER: postgres
+          LF_UTILS__POSTGRES_PASSWORD: postgres
