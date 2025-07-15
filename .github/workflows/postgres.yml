@@ -1,3 +1,4 @@
+# This workflow runs our dbt tests using Postgres for every push and pull request on github.
 name: Postgres CI
 
 on:
