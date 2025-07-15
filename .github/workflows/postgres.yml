@@ -60,6 +60,6 @@ jobs:
           source config/.env.cicd
           set +a
           export DBT_PROFILE=lf_utils_postgres
-          export DBT_TARGET=dev
+          dbt debug
           dbt build --select _dummy_source
           dbt test

@@ -31,6 +31,6 @@ jobs:
           set +a
           mkdir -p $(dirname $LF_UTILS__DUCKDB_DATAMART_PATH)
           export DBT_PROFILE=lf_utils_duckdb
-          export DBT_TARGET=dev
+          dbt debug
           dbt build --select _dummy_source
           dbt test

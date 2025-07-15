@@ -1,0 +1,63 @@
+# This workflow runs our dbt tests using MSSQL for every push and pull request on github.
+name: MSSQL CI
+
+on:
+  push:
+    branches: [ main, ps_early_prep ]
+  pull_request:
+    branches: [ main, ps_early_prep ]
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mssql:
+        image: mcr.microsoft.com/azure-sql-edge:latest
+        env:
+          ACCEPT_EULA: "Y"
+          SA_PASSWORD: "BetterUseP0stgres!"
+          MSSQL_PID: "Developer"
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd="/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'BetterUseP0stgres!' -Q 'SELECT 1' || exit 1" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt dependencies
+        run: |
+          pip install dbt-sqlserver
+          dbt deps
+
+      - name: Wait for MSSQL to be ready
+        run: |
+          set -a
+          source config/.env.cicd
+          set +a
+          for i in {1..10}; do
+            if /opt/mssql-tools/bin/sqlcmd -S "$LF_UTILS__MSSQL_HOST,$LF_UTILS__MSSQL_PORT" -U "$LF_UTILS__MSSQL_USER" -P "$LF_UTILS__MSSQL_PASSWORD" -Q "SELECT 1"; then
+              echo "MSSQL is ready!"
+              exit 0
+            fi
+            echo "Waiting for MSSQL..."
+            sleep 5
+          done
+          echo "MSSQL did not become ready in time!" >&2
+          exit 1
+
+      - name: Run dbt test
+        run: |
+          set -a
+          source config/.env.cicd
+          set +a
+          export DBT_PROFILE=lf_utils_mssql
+          dbt debug
+          dbt build --select _dummy_source
+          dbt test
