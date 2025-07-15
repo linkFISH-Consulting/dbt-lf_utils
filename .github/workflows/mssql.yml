@@ -31,13 +31,31 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install ODBC Driver
+        run: |
+          curl https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc
+          curl https://packages.microsoft.com/config/ubuntu/latest/prod.list | sudo tee /etc/apt/sources.list.d/mssql-release.list
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y msodbcsql18
+          sudo ACCEPT_EULA=Y apt-get install -y mssql-tools18
+
       - name: Install dbt dependencies
         run: |
           pip install dbt-sqlserver
           dbt deps
 
       - name: Wait for MSSQL to be ready
-        run: sleep 30
+        run: |
+          for i in {1..10}; do
+            if /opt/mssql-tools/bin/sqlcmd -S "$LF_UTILS__MSSQL_HOST" -U "$LF_UTILS__MSSQL_USER" -P "$LF_UTILS__MSSQL_PASSWORD" -Q "SELECT 1"; then
+              echo "MSSQL is ready!"
+              exit 0
+            fi
+            echo "Waiting for MSSQL..."
+            sleep 5
+          done
+          echo "MSSQL did not become ready in time!" >&2
+          exit 1
 
       - name: Run dbt test
         run: |
