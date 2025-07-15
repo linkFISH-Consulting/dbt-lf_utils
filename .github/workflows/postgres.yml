@@ -62,4 +62,4 @@ jobs:
           export DBT_PROFILE=lf_utils_postgres
           export DBT_TARGET=dev
           dbt build --select _dummy_source
-          dbt test --vars '{"raise_on_error": false}'
+          dbt test

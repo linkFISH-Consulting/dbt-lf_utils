@@ -15,3 +15,6 @@ log-path: "logs"
 
 flags:
   send_anonymous_usage_stats: false
+
+vars:
+  raise_on_error: false
