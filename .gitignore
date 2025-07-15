@@ -26,5 +26,4 @@ config/config.yml
 # dbt creates this, only for tracking. TODO: disable tracking!
 .user.yml
 
-# we have profiles.sample.yml
-profiles.yml
+# here, we need the profiles.yml for github actions to run.
