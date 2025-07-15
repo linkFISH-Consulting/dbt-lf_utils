@@ -48,7 +48,7 @@ jobs:
           PGPASSWORD: postgres
 
       - name: Run dbt test
-        run: "dbt build _dummy_source; dbt test --vars '{\"raise_on_error\": false}'"
+        run: "dbt build --select _dummy_source; dbt test --vars '{\"raise_on_error\": false}'"
         env:
           DBT_PROFILES_DIR: ${{ github.workspace }}/config/
           DBT_PROJECT_DIR: ${{ github.workspace }}/
