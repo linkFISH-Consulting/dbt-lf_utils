@@ -81,13 +81,13 @@ model_template = """{header}
 {description}
 
 with
-source as (select * from {{{{ source('{source_name}', '{table_name}') }}}})
+src as (select * from {{{{ source('{source_name}', '{table_name}') }}}})
 
 , cte_final as (
     -- only perform light transformations like renaming during the staging.
     -- alter as needed.
     -- by default, the generation script does not overwrite existing files.
-    select * from source
+    select * from src
 )
 
 select * from cte_final
