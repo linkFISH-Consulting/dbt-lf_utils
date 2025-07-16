@@ -1,15 +1,7 @@
+# this file is auto-generated. last updated: 2025-07-16 17:45:41
+
 version: 2
 
 macros:
   - name: left
-    description: '{{ doc("macros__left") }}'
-    arguments:
-      - name: column_name
-        type: column
-        description: The name of the column you want to convert
-      - name: precision
-        type: integer
-        description: Number of decimal places. Defaults to 2.
-
-
-
+    description: '{ doc("macros__left") }'

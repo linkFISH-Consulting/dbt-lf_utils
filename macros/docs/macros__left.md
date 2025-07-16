@@ -1,5 +1,3 @@
-The plan is to have these things auto-build from a comment block of our .sql files.
-
 {% docs macros__left %}
 
 Take the leftmost n characters of a string-column.
@@ -11,12 +9,12 @@ Take the leftmost n characters of a string-column.
     Column holding a number, or a number. Cannot be negative.
 
 # Example
+```sql
+-- text column
+lf_utils.left('text', 10)
 
-select * from foo
-
-so, seems we cannot write examples with jinja and macro usage:
-https://github.com/dbt-labs/dbt-core/issues/11837
-
-
+-- static text
+lf_utils.left("'any_static_text'", 10)
+```
 
 {% enddocs %}

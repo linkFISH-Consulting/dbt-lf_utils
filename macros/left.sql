@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-16 09:42:05
-@Last Modified: 2025-07-16 14:32:53
+@Last Modified: 2025-07-16 17:43:19
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -16,10 +16,10 @@ Take the leftmost n characters of a string-column.
 # Example
 ```sql
 -- text column
-select {{ lf_utils.left('text', 10) }} as output
+lf_utils.left('text', 10)
 
 -- static text
-select {{ lf_utils.left("'any_static_text'", 10) }} as output
+lf_utils.left("'any_static_text'", 10)
 ```
 endmacrodocs #}
 
