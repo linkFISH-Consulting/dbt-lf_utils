@@ -10,7 +10,7 @@ target-path: "target"
 clean-targets: ["target", "dbt_modules", "dbt_packages"]
 macro-paths: ["macros"]
 # we only have models that invoke macros, and want them to be close to the other code.
-model-paths: ["macros"]
+model-paths: ["models"]
 log-path: "logs"
 
 flags:

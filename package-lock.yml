@@ -1,0 +1,4 @@
+packages:
+  - git: https://github.com/pSpitzner/dbt-unittest.git
+    revision: 3d571e143b4b476b1943e87a7a293f5e5f607f1f
+sha1_hash: 394a791f7b37965d91eb0dfecbd1ad63f77c3315

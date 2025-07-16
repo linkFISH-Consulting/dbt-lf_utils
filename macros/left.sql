@@ -1,16 +1,16 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-16 09:42:05
-@Last Modified: 2025-07-16 10:37:00
+@Last Modified: 2025-07-16 14:32:53
 ------------------------------------------------------------------------------ #}
 
-{# macrodoc
+{# macrodocs
 Take the leftmost n characters of a string-column.
 
 # Arguments
-- text: string
+- text : string
     The column holding the string, or "'any_static_text'"
-- len: integer
+- len : integer
     Column holding a number, or a number. Cannot be negative.
 
 # Example
@@ -21,7 +21,7 @@ select {{ lf_utils.left('text', 10) }} as output
 -- static text
 select {{ lf_utils.left("'any_static_text'", 10) }} as output
 ```
-endmacrodoc #}
+endmacrodocs #}
 
 {% macro left(text, len) %}
     {{ return(adapter.dispatch('left', 'lf_utils')(text, len)) }}
