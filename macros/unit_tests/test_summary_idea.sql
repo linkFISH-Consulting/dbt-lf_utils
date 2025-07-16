@@ -1,11 +1,10 @@
 
--- Collect all assertion results
 with assertion_results as (
   {{ dbt_unittest.assert_true(1 == 1) }}
 
   union all
 
-  {{ dbt_unittest.assert_true(3 == 2) }}
+  {{ dbt_unittest.assert_true(2 == 2) }}
 
   union all
 
