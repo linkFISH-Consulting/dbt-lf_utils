@@ -2,6 +2,10 @@
   {{ return(adapter.dispatch('eomonth', 'lf_utils')(from_date_or_timestamp)) }}
 {% endmacro %}
 
+{%- macro default__eomonth(from_date_or_timestamp) %}
+-- The get_months Macro does not support your backend!
+{%- endmacro %}
+
 {%- macro duckdb__eomonth(from_date_or_timestamp) -%}
   date_trunc(
     'day',
