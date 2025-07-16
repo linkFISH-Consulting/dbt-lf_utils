@@ -1,23 +1,23 @@
-{% macro left(fieldName, len) %}
-    {{ return(adapter.dispatch('left', 'lf_utils')(fieldName, len)) }}
+{% macro left(text, len) %}
+    {{ return(adapter.dispatch('left', 'lf_utils')(text, len)) }}
 {% endmacro %}
 
-{%- macro default__left(fieldName, len) %}
-    left({{ fieldName }}, {{ len }})
+{%- macro default__left(text, len) %}
+    left({{ text }}, {{ len }})
 {%- endmacro %}
 
-{%- macro duckdb__left(fieldName, len) %}
-    left({{ fieldName }}, {{len}})
+{%- macro duckdb__left(text, len) %}
+    left({{ text }}, {{len}})
 {%- endmacro %}
 
-{%- macro oracle__left(fieldName, len) %}
-    SUBSTR({{ fieldName }}, 1, {{len}})
+{%- macro oracle__left(text, len) %}
+    SUBSTR({{ text }}, 1, {{len}})
 {%- endmacro %}
 
-{%- macro sqlserver__left(fieldName, len) %}
-    LEFT({{ fieldName }}, {{ len }})
+{%- macro sqlserver__left(text, len) %}
+    LEFT({{ text }}, {{ len }})
 {%- endmacro %}
 
-{%- macro postgres__left(fieldName, len) %}
-    left({{ fieldName }},  {{ len }})
+{%- macro postgres__left(text, len) %}
+    left({{ text }},  {{ len }})
 {%- endmacro %}

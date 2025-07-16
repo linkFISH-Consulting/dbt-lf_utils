@@ -10,10 +10,17 @@ We override its content in the .yml or specific .sql of each unit test.
 It is not ephemeral, as suggested in
 https://medium.com/glitni/how-to-unit-test-macros-in-dbt-89bdb5de8634
 because we _do not_ want to be forced into using sql syntax to specify rows!
-However, dbts tests still need _some_ input model to be provided, and to exist,
-even when mocking it 100% via the yml.
+However, in any case, dbts tests still need _some_ input model to be
+provided, and to exist, even when mocking it 100% via the yml.
+
+Further, dbt checks the schema of this model, and if a column is not
+defined, we cannot mock it. Thus, we add a bunch of columns that we might
+need.
 ------------------------------------------------------------------------------ #}
 
 
 
-select 1 as id
+select
+  1 as id,
+  '' as text,
+  0 as len
