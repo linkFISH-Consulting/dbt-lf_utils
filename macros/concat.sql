@@ -2,14 +2,18 @@
     {{ return(adapter.dispatch('concat')(fields)) }}
 {% endmacro %}
 
-{%- macro default__concat(fields) -%}
+{%- macro duckdb__concat(fields) %}
     {{ fields|join(' || ') }}
 {%- endmacro %}
 
-{%- macro oracle__concat(fields) %}
+{%- macro postgres__concat(fields) %}
     {{ fields|join(' || ') }}
 {%- endmacro %}
 
 {%- macro sqlserver__concat(fields) %}
-    CONCAT({{ fields|join(', ') }})
+    concat({{ fields|join(', ') }})
+{%- endmacro %}
+
+{%- macro oracle__concat(fields) %}
+    {{ fields|join(' || ') }}
 {%- endmacro %}
