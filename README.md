@@ -76,3 +76,65 @@ docker-compose down -v && docker-compose up -d
 
 ### Guidelines:
 - Let's not add default adapters. This helps catching errors early, already when developing, and not only running the model and finding broken data.
+
+
+
+## Migration
+
+We had a loose collection for macros, this is a list of where they ended up ...
+
+
+
+## Learnings
+
+### Jinja
+
+Jinja is a pain in the neck.
+
+To pass a static string into a macro:
+
+```sql
+
+{% set my_var = lf_utils.left("fooBar", 3) %}
+--> 'foo', but we have to be in a jinja context
+```
+
+Things get trickier when in a select statement:
+```sql
+select
+    {{ lf_utils.left("fooBar", 3) }} as output
+from input
+--> would try to find a column `fooBar` in the input table.
+
+select
+    '{{ lf_utils.left("fooBar", 3) }}' as output
+from input
+--> put a static 'foo' into the output column
+```
+
+Sometimes macros can take either fields (column references) or static strings, like the `left` macro:
+
+```sql
+select
+    {{ lf_utils.left(col1, 3) }} as output
+from input
+--> would fail because col1 is not set as a jinja variable.
+
+select
+    {{ lf_utils.left("col1", 3) }} as output
+from input
+--> would try to find a column `col1` in the input table.
+
+select
+    {{ lf_utils.left("'fooBar'", 3) }} as output
+from input
+--> would put a static 'fooBar' into the output column
+```
+
+
+
+
+
+
+
+

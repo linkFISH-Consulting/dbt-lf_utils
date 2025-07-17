@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-14 11:22:02
-@Last Modified: 2025-07-14 16:19:01
+@Last Modified: 2025-07-17 11:01:50
 
 This is a dummy source, which has to be build before running any tests.
 dbt build --select _dummy_source
@@ -22,5 +22,11 @@ need.
 
 select
   1 as id,
-  '' as text,
+  {# the cast to varchar is needed to avoid mssql casting to varchar(1). we cant use varchar(max) because of duckdb.
+  varchar without arg seems to compile to `varying` in mssql, which works for the currently used but might have other quirks.
+  since tests are small, for now we spec a big number.
+  8k is max for mssql.
+  #}
+  cast('' as varchar(8000)) as text,
+  cast('' as varchar(8000)) as substring,
   0 as len
