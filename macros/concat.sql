@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-06-20 10:14:41
-@Last Modified: 2025-07-17 11:05:26
+@Last Modified: 2025-07-17 13:21:36
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -21,7 +21,7 @@ lf_utils.concat(['col1', "'static_text'"])
 endmacrodocs #}
 
 {% macro concat(fields) -%}
-    {{ return(adapter.dispatch('concat')(fields)) }}
+    {{ return(adapter.dispatch('concat', 'lf_utils')(fields)) }}
 {% endmacro %}
 
 {%- macro duckdb__concat(fields) %}

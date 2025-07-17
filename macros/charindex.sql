@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-17 10:17:44
-@Last Modified: 2025-07-17 11:05:21
+@Last Modified: 2025-07-17 13:21:44
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -28,7 +28,7 @@ endmacrodocs #}
 
 
 {% macro charindex(substring, text) -%}
-    {{ return(adapter.dispatch('charindex')(substring, text)) }}
+    {{ return(adapter.dispatch('charindex', 'lf_utils')(substring, text)) }}
 {% endmacro %}
 
 {% macro duckdb__charindex(substring, text) -%}

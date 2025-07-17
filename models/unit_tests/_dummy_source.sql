@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-14 11:22:02
-@Last Modified: 2025-07-17 11:01:50
+@Last Modified: 2025-07-17 15:39:48
 
 This is a dummy source, which has to be build before running any tests.
 dbt build --select _dummy_source
@@ -20,13 +20,12 @@ need.
 
 
 
+{# casts are only used to fix the schema and datatype of the table.
+values still need to be provided in the .yml of the test! #}
 select
   1 as id,
-  {# the cast to varchar is needed to avoid mssql casting to varchar(1). we cant use varchar(max) because of duckdb.
-  varchar without arg seems to compile to `varying` in mssql, which works for the currently used but might have other quirks.
-  since tests are small, for now we spec a big number.
-  8k is max for mssql.
-  #}
-  cast('' as varchar(8000)) as text,
-  cast('' as varchar(8000)) as substring,
+  cast('' as {{ dbt.type_string() }}) as text,
+  cast('' as {{ dbt.type_string() }}) as substring,
+  cast('2021-01-01 01:01:01' as {{ dbt.type_timestamp() }}) as datetime_col,
+  cast('2021-01-01' as date ) as date_col,
   0 as len

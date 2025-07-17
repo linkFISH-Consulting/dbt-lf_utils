@@ -1,0 +1,27 @@
+unit_tests:
+  - name: ut_date_to_string
+    model: ut_date_to_string
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows:
+          # the macro cannot read the format from column, so we have to set
+          # inputs in the ut_ sql. however, still need to provide values!
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 01:01:01"}
+    expect:
+      rows:
+        # 112, and checking len=undefined, 6, 4
+        - {output: "20210101"}
+        - {output: "20210101"}
+        - {output: "202101"}
+        - {output: "202101"}
+        - {output: "2021"}
+        - {output: "2021"}
+        # 104
+        - {output: "01.01.2021"}
+        - {output: "01.01.2021"}
+        # 103
+        - {output: "01/01/2021"}
+        - {output: "01/01/2021"}
+

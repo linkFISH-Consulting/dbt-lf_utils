@@ -132,9 +132,31 @@ from input
 ```
 
 
+## Casting
 
+dbt has some builtin `type_` macros to make casting work across adapters.
 
+Useful references:
+- https://docs.getdbt.com/reference/dbt-jinja-functions/cross-database-macros#data-type-functions
+- https://github.com/dbt-labs/dbt-core/blob/8019498f0912e9ea921a5579c454e3408764960c/core/dbt/include/global_project/macros/utils/data_types.sql
+- https://github.com/dbt-labs/dbt-core/issues/7103
 
+Found the following types:
+- `type_timestamp`
+- `type_string`
+- `type_numeric`
+- `type_int`
+- `type_bigint`
+- `type_float`
+- `type_boolean`
 
+Example:
 
+This works on duckdb, postres and mssql adapters:
+```sql
+cast('2021-01-01' as date ) as date_col,
+cast('2021-01-01 01:01:01' as {{ dbt.type_timestamp() }}) as datetime_col,
+cast('' as {{ dbt.type_string() }}) as string_col,
+```
 
+strings become `text` in postgres, and `varchar(8000)` in mssql.
