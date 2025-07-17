@@ -101,7 +101,7 @@ def entrypoint(
 
         # update the dbt_yml_file with the new macrodoc
         dbt_yml_content += f"  - name: {fp.stem}\n"
-        dbt_yml_content += f"    description: '{{ doc(\"{out_name}\") }}'\n\n"
+        dbt_yml_content += "    description: '{{ doc(\"" + out_name + "\") }}'\n\n"
 
     dbt_yml_file.write_text(dbt_yml_content)
 
