@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-16 09:42:05
-@Last Modified: 2025-07-16 17:43:19
+@Last Modified: 2025-07-17 11:05:32
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -14,13 +14,13 @@ Take the leftmost n characters of a string-column.
     Column holding a number, or a number. Cannot be negative.
 
 # Example
-```sql
+
 -- text column
 lf_utils.left('text', 10)
 
 -- static text
 lf_utils.left("'any_static_text'", 10)
-```
+
 endmacrodocs #}
 
 {% macro left(text, len) %}

@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-17 10:17:44
-@Last Modified: 2025-07-17 10:33:28
+@Last Modified: 2025-07-17 11:05:21
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -17,13 +17,13 @@ If found, index starts counting at 1.
     The string to be searched.
 
 # Example
-```sql
+
 -- text column
 lf_utils.charindex('foo', col1)
 
 -- column with static text
 lf_utils.charindex('bar', "'foobar'")
-```
+
 endmacrodocs #}
 
 

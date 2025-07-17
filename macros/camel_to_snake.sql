@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-17 09:28:33
-@Last Modified: 2025-07-17 10:03:04
+@Last Modified: 2025-07-17 11:05:08
 ------------------------------------------------------------------------------ #}
 
 
@@ -14,9 +14,9 @@ Only works on the jinja side, DO NOT pass a column as the argument!
 - text : string
 
 # Example
-```sql
+
 lf_utils.camel_to_snake("bdgmPersID_Monat")
-```
+
 endmacrodocs #}
 
 

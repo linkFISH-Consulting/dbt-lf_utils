@@ -1,8 +1,17 @@
-# this file is auto-generated. last updated: 2025-07-17 09:10:47
+# this file is auto-generated. last updated: 2025-07-17 11:07:10
 
 version: 2
 
 macros:
   - name: left
     description: '{{ doc("macros__left") }}'
+
+  - name: concat
+    description: '{{ doc("macros__concat") }}'
+
+  - name: camel_to_snake
+    description: '{{ doc("macros__camel_to_snake") }}'
+
+  - name: charindex
+    description: '{{ doc("macros__charindex") }}'
 

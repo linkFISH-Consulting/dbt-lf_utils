@@ -9,12 +9,12 @@ Take the leftmost n characters of a string-column.
     Column holding a number, or a number. Cannot be negative.
 
 # Example
-```sql
+
 -- text column
 lf_utils.left('text', 10)
 
 -- static text
 lf_utils.left("'any_static_text'", 10)
-```
+
 
 {% enddocs %}
