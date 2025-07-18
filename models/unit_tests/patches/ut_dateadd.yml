@@ -1,0 +1,23 @@
+unit_tests:
+  - name: ut_dateadd
+    model: ut_dateadd
+    description: |
+      These tests check that dbt built-in dateadd works on our backends,
+      at least with the dateparts `day`, `month`, `year`.
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows:
+          # the macro cannot read the format from column, so we have to set
+          # inputs in the ut_ sql. however, still need to provide values!
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 01:01:01"}
+    expect:
+      rows:
+        - {output: "2021-01-02"}
+        - {output: "2021-01-02 01:01:01"}
+        - {output: "2021-02-01"}
+        - {output: "2021-02-01 01:01:01"}
+        - {output: "2022-01-01"}
+        - {output: "2022-01-01 01:01:01"}
+

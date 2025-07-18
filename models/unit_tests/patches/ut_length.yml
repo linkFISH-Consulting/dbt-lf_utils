@@ -1,0 +1,19 @@
+unit_tests:
+  - name: ut_length
+    model: ut_length
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows:
+          # the macro cannot read the format from column, so we have to set
+          # inputs in the ut_ sql. however, still need to provide values!
+          - {text: ""}
+          - {text: "foo"}
+          - {text: "foobar"}
+    expect:
+      rows:
+        - {output: 0}
+        - {output: 3}
+        - {output: 6}
+

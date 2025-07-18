@@ -1,6 +1,6 @@
 unit_tests:
-  - name: ut_charindex
-    model: ut_charindex
+  - name: ut_position
+    model: ut_position
     given:
       # we cannot skip the input argument, even when we define them manually in
       # in the model

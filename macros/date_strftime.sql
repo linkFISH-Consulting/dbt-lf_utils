@@ -1,3 +1,9 @@
+{# ------------------------------------------------------------------------------
+@Author:        F. Paul Spitzner
+@Created:       2025-07-17 15:49:52
+@Last Modified: 2025-07-18 10:56:35
+------------------------------------------------------------------------------ #}
+
 {# macrodocs
 A cross-backend macro to format dates using strftime-like format strings.
 Supports DuckDB, Postgres, and MSSQL (limited patterns).
@@ -26,6 +32,7 @@ TODO: Think about localisation (Month names)
 lf_utils.date_strftime('my_date', '%Y%m%d')
 
 endmacrodocs #}
+
 {% macro date_strftime(date_col, format) %}
     {{ return(adapter.dispatch("date_strftime", "lf_utils")(date_col, format)) }}
 {% endmacro %}

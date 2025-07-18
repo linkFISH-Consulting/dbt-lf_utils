@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-14 11:22:02
-@Last Modified: 2025-07-17 15:39:48
+@Last Modified: 2025-07-18 13:09:39
 
 This is a dummy source, which has to be build before running any tests.
 dbt build --select _dummy_source

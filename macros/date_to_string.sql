@@ -1,5 +1,14 @@
+{# ------------------------------------------------------------------------------
+@Author:        F. Paul Spitzner
+@Created:       2025-07-17 13:19:58
+@Last Modified: 2025-07-18 10:59:50
+------------------------------------------------------------------------------ #}
+
 {# macrodocs
 Convert a date column into a string representation, using MSSQL date format codes.
+
+# Deprication Notice
+Only kept for historic reasons, better use `date_strftime`.
 
 # Arguments
 - date_col : date/timestamp column

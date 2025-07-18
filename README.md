@@ -90,6 +90,21 @@ There is already an object named 'ut_date_strftime__dbt_tmp' in the database.
 
 We had a loose collection for macros, this is a list of where they ended up ...
 
+Dbt offers a lot of cross-database macros, we should try to use them, and extend them in the toolbox if they dont work for our needed adapters. [See here](https://docs.getdbt.com/reference/dbt-jinja-functions/cross-database-macros)
+
+
+### Date functions
+
+- `datefromparts` -> use `{{ dbt.date(2023, 10, 4) }}`
+- `eomonth` -> use `{{ dbt.last_day(date, "month") }}` instead. We here test that it works.
+- `dateadd` -> use `{{ dbt.dateadd(datepart, number, from_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
+- `datediff` -> use `{{ dbt.datediff(datepart, from_date_or_timestamp, to_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
+- `year` -> use `{{ lf_utils.date_strftime(date, "%Y") }}` instead. Cast to int via `cast({{ lf_utils.date_strftime(date, "%Y")) }}, dbt.type_int() }}`
+
+### Strings
+- `charindex` -> use `{{ dbt.position(substring, text) }}` instead.
+- `concat` -> use `{{ dbt.concat(fields) }}` instead.
+- `len` -> use `{{ dbt.length(string) }}` instead. Not tested yet.
 
 
 ## Learnings
@@ -156,6 +171,7 @@ Found the following types:
 - `type_bigint`
 - `type_float`
 - `type_boolean`
+- Note that there is no `type_date`, (PS 2025-07-18: I reccon `date` works in all adapters?)
 
 Example:
 
@@ -167,3 +183,11 @@ cast('' as {{ dbt.type_string() }}) as string_col,
 ```
 
 strings become `text` in postgres, and `varchar(8000)` in mssql.
+
+Dbt also offers functions: `cast` and `safe_cast` (returns null on error)
+```sql
+{{ dbt.cast("column_1", api.Column.translate_type("string")) }}
+{{ dbt.cast("column_2", api.Column.translate_type("integer")) }}
+{{ dbt.cast("'2016-03-09'", api.Column.translate_type("date")) }}
+```
+
