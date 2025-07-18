@@ -66,8 +66,11 @@ docker compose -f ./docker-compose.yml down
 
 ### Restart db servers with database reset:
 
-```
+```bash
 docker-compose down -v && docker-compose up -d
+
+# for the impatient:
+docker-compose kill && docker-compose down -v && docker-compose up -d
 ```
 
 This helps when one of the tests failed and left artifacts. For example:
@@ -114,6 +117,9 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
     `cast(value, dbt.type_string())`
     We could also consider using `{{ dbt.cast(value, dbt.type_string()) }}` instead.
 - `try_cast` -> use `{{ dbt.safe_cast(value, dbt.type_string()) }}`.
+    Ideally, we avoid using this -> dbt.safe_cast does not work with postgres.
+    TODO: Maybe add a custom `try_cast` macro for us and make it wrap safe_cast?
+    For PG, could add manual checks for a bunch of types and then use normal cast?
 
 ## Learnings
 
