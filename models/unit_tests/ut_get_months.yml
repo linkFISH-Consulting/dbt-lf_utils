@@ -1,0 +1,45 @@
+unit_tests:
+  - name: ut_get_months
+    model: ut_get_months
+    given:
+      - input: ref('_dummy_source')
+        rows: [] # defined in sql
+    expect:
+      rows:
+        - {jahrmonat: "202301", jahrmonat_vormonat: "202212", jahrmonat_folgemonat: "202302", jahrmonat_vorjahr: "202201", jahrmonat_folgejahr: "202401", letzter_tag: "2023-01-31"}
+        - {jahrmonat: "202302", jahrmonat_vormonat: "202301", jahrmonat_folgemonat: "202303", jahrmonat_vorjahr: "202202", jahrmonat_folgejahr: "202402", letzter_tag: "2023-02-28"}
+        - {jahrmonat: "202303", jahrmonat_vormonat: "202302", jahrmonat_folgemonat: "202304", jahrmonat_vorjahr: "202203", jahrmonat_folgejahr: "202403", letzter_tag: "2023-03-31"}
+        - {jahrmonat: "202304", jahrmonat_vormonat: "202303", jahrmonat_folgemonat: "202305", jahrmonat_vorjahr: "202204", jahrmonat_folgejahr: "202404", letzter_tag: "2023-04-30"}
+        - {jahrmonat: "202305", jahrmonat_vormonat: "202304", jahrmonat_folgemonat: "202306", jahrmonat_vorjahr: "202205", jahrmonat_folgejahr: "202405", letzter_tag: "2023-05-31"}
+        - {jahrmonat: "202306", jahrmonat_vormonat: "202305", jahrmonat_folgemonat: "202307", jahrmonat_vorjahr: "202206", jahrmonat_folgejahr: "202406", letzter_tag: "2023-06-30"}
+        - {jahrmonat: "202307", jahrmonat_vormonat: "202306", jahrmonat_folgemonat: "202308", jahrmonat_vorjahr: "202207", jahrmonat_folgejahr: "202407", letzter_tag: "2023-07-31"}
+        - {jahrmonat: "202308", jahrmonat_vormonat: "202307", jahrmonat_folgemonat: "202309", jahrmonat_vorjahr: "202208", jahrmonat_folgejahr: "202408", letzter_tag: "2023-08-31"}
+        - {jahrmonat: "202309", jahrmonat_vormonat: "202308", jahrmonat_folgemonat: "202310", jahrmonat_vorjahr: "202209", jahrmonat_folgejahr: "202409", letzter_tag: "2023-09-30"}
+        - {jahrmonat: "202310", jahrmonat_vormonat: "202309", jahrmonat_folgemonat: "202311", jahrmonat_vorjahr: "202210", jahrmonat_folgejahr: "202410", letzter_tag: "2023-10-31"}
+        - {jahrmonat: "202311", jahrmonat_vormonat: "202310", jahrmonat_folgemonat: "202312", jahrmonat_vorjahr: "202211", jahrmonat_folgejahr: "202411", letzter_tag: "2023-11-30"}
+        - {jahrmonat: "202312", jahrmonat_vormonat: "202311", jahrmonat_folgemonat: "202401", jahrmonat_vorjahr: "202212", jahrmonat_folgejahr: "202412", letzter_tag: "2023-12-31"}
+        - {jahrmonat: "202401", jahrmonat_vormonat: "202312", jahrmonat_folgemonat: "202402", jahrmonat_vorjahr: "202301", jahrmonat_folgejahr: "202501", letzter_tag: "2024-01-31"}
+        - {jahrmonat: "202402", jahrmonat_vormonat: "202401", jahrmonat_folgemonat: "202403", jahrmonat_vorjahr: "202302", jahrmonat_folgejahr: "202502", letzter_tag: "2024-02-29"}
+        - {jahrmonat: "202403", jahrmonat_vormonat: "202402", jahrmonat_folgemonat: "202404", jahrmonat_vorjahr: "202303", jahrmonat_folgejahr: "202503", letzter_tag: "2024-03-31"}
+        - {jahrmonat: "202404", jahrmonat_vormonat: "202403", jahrmonat_folgemonat: "202405", jahrmonat_vorjahr: "202304", jahrmonat_folgejahr: "202504", letzter_tag: "2024-04-30"}
+        - {jahrmonat: "202405", jahrmonat_vormonat: "202404", jahrmonat_folgemonat: "202406", jahrmonat_vorjahr: "202305", jahrmonat_folgejahr: "202505", letzter_tag: "2024-05-31"}
+        - {jahrmonat: "202406", jahrmonat_vormonat: "202405", jahrmonat_folgemonat: "202407", jahrmonat_vorjahr: "202306", jahrmonat_folgejahr: "202506", letzter_tag: "2024-06-30"}
+        - {jahrmonat: "202407", jahrmonat_vormonat: "202406", jahrmonat_folgemonat: "202408", jahrmonat_vorjahr: "202307", jahrmonat_folgejahr: "202507", letzter_tag: "2024-07-31"}
+        - {jahrmonat: "202408", jahrmonat_vormonat: "202407", jahrmonat_folgemonat: "202409", jahrmonat_vorjahr: "202308", jahrmonat_folgejahr: "202508", letzter_tag: "2024-08-31"}
+        - {jahrmonat: "202409", jahrmonat_vormonat: "202408", jahrmonat_folgemonat: "202410", jahrmonat_vorjahr: "202309", jahrmonat_folgejahr: "202509", letzter_tag: "2024-09-30"}
+        - {jahrmonat: "202410", jahrmonat_vormonat: "202409", jahrmonat_folgemonat: "202411", jahrmonat_vorjahr: "202310", jahrmonat_folgejahr: "202510", letzter_tag: "2024-10-31"}
+        - {jahrmonat: "202411", jahrmonat_vormonat: "202410", jahrmonat_folgemonat: "202412", jahrmonat_vorjahr: "202311", jahrmonat_folgejahr: "202511", letzter_tag: "2024-11-30"}
+        - {jahrmonat: "202412", jahrmonat_vormonat: "202411", jahrmonat_folgemonat: "202501", jahrmonat_vorjahr: "202312", jahrmonat_folgejahr: "202512", letzter_tag: "2024-12-31"}
+        - {jahrmonat: "202501", jahrmonat_vormonat: "202412", jahrmonat_folgemonat: "202502", jahrmonat_vorjahr: "202401", jahrmonat_folgejahr: "202601", letzter_tag: "2025-01-31"}
+        - {jahrmonat: "202502", jahrmonat_vormonat: "202501", jahrmonat_folgemonat: "202503", jahrmonat_vorjahr: "202402", jahrmonat_folgejahr: "202602", letzter_tag: "2025-02-28"}
+        - {jahrmonat: "202503", jahrmonat_vormonat: "202502", jahrmonat_folgemonat: "202504", jahrmonat_vorjahr: "202403", jahrmonat_folgejahr: "202603", letzter_tag: "2025-03-31"}
+        - {jahrmonat: "202504", jahrmonat_vormonat: "202503", jahrmonat_folgemonat: "202505", jahrmonat_vorjahr: "202404", jahrmonat_folgejahr: "202604", letzter_tag: "2025-04-30"}
+        - {jahrmonat: "202505", jahrmonat_vormonat: "202504", jahrmonat_folgemonat: "202506", jahrmonat_vorjahr: "202405", jahrmonat_folgejahr: "202605", letzter_tag: "2025-05-31"}
+        - {jahrmonat: "202506", jahrmonat_vormonat: "202505", jahrmonat_folgemonat: "202507", jahrmonat_vorjahr: "202406", jahrmonat_folgejahr: "202606", letzter_tag: "2025-06-30"}
+        - {jahrmonat: "202507", jahrmonat_vormonat: "202506", jahrmonat_folgemonat: "202508", jahrmonat_vorjahr: "202407", jahrmonat_folgejahr: "202607", letzter_tag: "2025-07-31"}
+        - {jahrmonat: "202508", jahrmonat_vormonat: "202507", jahrmonat_folgemonat: "202509", jahrmonat_vorjahr: "202408", jahrmonat_folgejahr: "202608", letzter_tag: "2025-08-31"}
+        - {jahrmonat: "202509", jahrmonat_vormonat: "202508", jahrmonat_folgemonat: "202510", jahrmonat_vorjahr: "202409", jahrmonat_folgejahr: "202609", letzter_tag: "2025-09-30"}
+        - {jahrmonat: "202510", jahrmonat_vormonat: "202509", jahrmonat_folgemonat: "202511", jahrmonat_vorjahr: "202410", jahrmonat_folgejahr: "202610", letzter_tag: "2025-10-31"}
+        - {jahrmonat: "202511", jahrmonat_vormonat: "202510", jahrmonat_folgemonat: "202512", jahrmonat_vorjahr: "202411", jahrmonat_folgejahr: "202611", letzter_tag: "2025-11-30"}
+        - {jahrmonat: "202512", jahrmonat_vormonat: "202511", jahrmonat_folgemonat: "202601", jahrmonat_vorjahr: "202412", jahrmonat_folgejahr: "202612", letzter_tag: "2025-12-31"}
+
