@@ -70,6 +70,13 @@ docker compose -f ./docker-compose.yml down
 docker-compose down -v && docker-compose up -d
 ```
 
+This helps when one of the tests failed and left artifacts. For example:
+```
+[42S01] [Microsoft][ODBC Driver 18 for SQL Server][SQL Server]
+There is already an object named 'ut_date_strftime__dbt_tmp' in the database.
+(2714) (SQLMoreResults)
+```
+
 ## Developing
 
 

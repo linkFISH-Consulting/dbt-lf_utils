@@ -8,10 +8,10 @@ unit_tests:
         rows:
           # the macro cannot read the format from column, so we have to set
           # inputs in the ut_ sql. however, still need to provide values!
-          - {date_col: "2021-03-04", datetime_col: "2021-03-04 01:01:01"}
+          - {date_col: "2021-03-04", datetime_col: "2021-03-04 13:01:01"}
     expect:
       rows:
-        # ["%Y%m%d", "%Y-%m-%d", "%Y/%m/%d", "%B %Y"], each twice!
+        # ["%Y%m%d", "%Y-%m-%d", "%Y/%m/%d", "%B %Y", "%b %Y", "%Y-%m-%d %H:%M:%S"]
         - {output: "20210304"}
         - {output: "20210304"}
         - {output: "2021-03-04"}
@@ -20,5 +20,17 @@ unit_tests:
         - {output: "2021/03/04"}
         - {output: "March 2021"}
         - {output: "March 2021"}
+        - {output: "Mar 2021"}
+        - {output: "Mar 2021"}
+        # the date column does not have a time specified,
+        # but it should be cast to 00:00:00
+        - {output: "2021-03-04 00:00:00"}
+        - {output: "2021-03-04 13:01:01"}
+        # 12-hour format with AM/PM
+        - {output: "12:00 AM"}
+        - {output: "01:01 PM"}
+        # week number (should be 09 for 2021-03-04, which is Thursday of week 9)
+        - {output: "09"}
+        - {output: "09"}
 
 
