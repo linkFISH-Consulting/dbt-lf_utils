@@ -24,7 +24,7 @@ jobs:
           pip install dbt-duckdb
           dbt deps
 
-      - name: Prepare environment variables
+      - name: Run dbt test
         run: |
           set -a
           source config/.env.cicd

@@ -1,11 +1,13 @@
 # This workflow runs our dbt tests using MSSQL for every push and pull request on github.
 name: MSSQL CI
 
-on:
-  push:
-    branches: [ main, ps_early_prep ]
-  pull_request:
-    branches: [ main, ps_early_prep ]
+
+# DISABLED, just for reference
+# on:
+#   push:
+#     branches: [ main, ps_early_prep ]
+#   pull_request:
+#     branches: [ main, ps_early_prep ]
 
 jobs:
   dbt-test:
@@ -13,7 +15,7 @@ jobs:
 
     services:
       mssql:
-        image: mcr.microsoft.com/mssql/server:2022-latest
+        image: mcr.microsoft.com/azure-sql-edge:latest
         env:
           ACCEPT_EULA: "Y"
           SA_PASSWORD: "BetterUseP0stgres!"

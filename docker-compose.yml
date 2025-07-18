@@ -19,10 +19,13 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   mssql:
-    # image: mcr.microsoft.com/mssql/server:2022-latest
-    # on macos we have two options: emulate the platform (slow) or use another image.
-    # platform: linux/arm64
-    image: mcr.microsoft.com/azure-sql-edge:latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    # on arm macos we have two options: emulate the platform (slow) or use another image.
+    # unfortunately, `mcr.microsoft.com/azure-sql-edge:latest` has no support for
+    # common language runtime (CLR) which we need for date formatting.
+    # Note: to get emulation working proper, you need to enable rosetta
+    # in docker desktop settings: https://stackoverflow.com/a/75975040/22346289
     container_name: lf_utils_mssql
     environment:
       ACCEPT_EULA: "Y"

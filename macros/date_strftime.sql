@@ -29,18 +29,24 @@ endmacrodocs #}
         | replace("%H", "HH24")
         | replace("%M", "MI")
         | replace("%S", "SS")
-        | replace("%B", "Month")
+        | replace("%B", "FMMonth")
         | replace("%b", "Mon")
     ) -%}
     to_char({{ date_col }}, '{{ pg_format }}')
 {% endmacro %}
 
-{# MSSQL: only support '%Y%m%d' for now, which is format 112 #}
+
 {% macro sqlserver__date_strftime(date_col, format) %}
-    {%- if format == "%Y%m%d" -%}
-        convert(varchar, {{ date_col }}, 112)
-    {%- else -%}
-        -- Not implemented: only '%Y%m%d' supported for now
-        null
-    {%- endif -%}
+    {%- set mssql_format = (
+        format
+        | replace("%Y", "yyyy")
+        | replace("%m", "MM")
+        | replace("%d", "dd")
+        | replace("%H", "HH")
+        | replace("%M", "mm")
+        | replace("%S", "ss")
+        | replace("%B", "MMMM")
+        | replace("%b", "MMM")
+    ) -%}
+    format({{ date_col }}, '{{ mssql_format }}')
 {% endmacro %}

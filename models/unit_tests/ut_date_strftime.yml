@@ -14,11 +14,11 @@ unit_tests:
         # ["%Y%m%d", "%Y-%m-%d", "%Y/%m/%d", "%B %Y"], each twice!
         - {output: "20210304"}
         - {output: "20210304"}
-        # - {output: "2021-03-04"}
-        # - {output: "2021-03-04"}
-        # - {output: "2021/03/04"}
-        # - {output: "2021/03/04"}
-        # - {output: "March 2021"}
-        # - {output: "March 2021"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021/03/04"}
+        - {output: "2021/03/04"}
+        - {output: "March 2021"}
+        - {output: "March 2021"}
 
 
