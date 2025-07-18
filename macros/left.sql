@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-16 09:42:05
-@Last Modified: 2025-07-17 11:05:32
+@Last Modified: 2025-07-18 13:33:57
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -16,15 +16,15 @@ Take the leftmost n characters of a string-column.
 # Example
 
 -- text column
-lf_utils.left('text', 10)
+lf_utils.left('text', 3)
 
 -- static text
-lf_utils.left("'any_static_text'", 10)
+lf_utils.left("'any_static_text'", 3)
 
 endmacrodocs #}
 
 {% macro left(text, len) %}
-    {{ return(adapter.dispatch('left', 'lf_utils')(text, len)) }}
+    {{ return(adapter.dispatch('left', 'dbt')(text, len)) }}
 {% endmacro %}
 
 {%- macro duckdb__left(text, len) %}

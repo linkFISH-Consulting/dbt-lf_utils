@@ -11,10 +11,10 @@ Take the leftmost n characters of a string-column.
 # Example
 
 -- text column
-lf_utils.left('text', 10)
+lf_utils.left('text', 3)
 
 -- static text
-lf_utils.left("'any_static_text'", 10)
+lf_utils.left("'any_static_text'", 3)
 
 
 {% enddocs %}

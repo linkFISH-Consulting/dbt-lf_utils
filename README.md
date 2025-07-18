@@ -105,7 +105,15 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 - `charindex` -> use `{{ dbt.position(substring, text) }}` instead.
 - `concat` -> use `{{ dbt.concat(fields) }}` instead.
 - `len` -> use `{{ dbt.length(string) }}` instead. Not tested yet.
+- `left` -> use `{{ lf_utils.left(text, len) }}`
+- `right` -> use `{{ lf_utils.right(text, len) }}` (wrapper around `dbt.right()`. Somehow they only implement `right` but not `left` but it makes sense to have the same syntax for both)
 
+### Casting
+
+- `cast` -> Should be safe to use with dbt types (see below).
+    `cast(value, dbt.type_string())`
+    We could also consider using `{{ dbt.cast(value, dbt.type_string()) }}` instead.
+- `try_cast` -> use `{{ dbt.safe_cast(value, dbt.type_string()) }}`.
 
 ## Learnings
 
