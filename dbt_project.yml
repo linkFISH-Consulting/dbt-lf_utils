@@ -2,9 +2,19 @@ name: 'lf_utils'
 version: '0.1.0'
 require-dbt-version: [">=1.5.0", "<2.0.0"]
 
+profile: 'lf_utils_duckdb'
+
 config-version: 2
 
 target-path: "target"
 clean-targets: ["target", "dbt_modules", "dbt_packages"]
 macro-paths: ["macros"]
+# we only have models that invoke macros, and want them to be close to the other code.
+model-paths: ["models"]
 log-path: "logs"
+
+flags:
+  send_anonymous_usage_stats: false
+
+vars:
+  raise_on_error: false

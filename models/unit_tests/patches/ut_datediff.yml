@@ -1,0 +1,27 @@
+unit_tests:
+  - name: ut_datediff
+    model: ut_datediff
+    description: |
+      These tests check that dbt built-in datediff works on our backends,
+      at least with the dateparts `day`, `month`, `year`.
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          # we use the date and datetime cols as left minus right
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 01:01:01"}
+          - {date_col: "2021-01-02", datetime_col: "2021-02-01 01:01:01"}
+          - {date_col: "2021-01-01", datetime_col: "2022-01-01 01:01:01"}
+    expect:
+      rows:
+        # day difference
+        - {output: 0}   # same day
+        - {output: 30}  # 2021-01-02 to 2021-02-01
+        - {output: 365} # 2021-01-01 to 2022-01-01
+        # month difference
+        - {output: 0}   # same month
+        - {output: 1}   # 2021-01-02 to 2021-02-01
+        - {output: 12}  # 2021-01-01 to 2022-01-01
+        # year difference
+        - {output: 0}   # same year
+        - {output: 0}   # 2021-01-02 to 2021-02-01
+        - {output: 1}   # 2021-01-01 to 2022-01-01

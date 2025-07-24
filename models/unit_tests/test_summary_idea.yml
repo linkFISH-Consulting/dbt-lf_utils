@@ -1,0 +1,21 @@
+unit_tests:
+  - name: test_summary_idea
+    model: test_summary_idea
+    description: |
+      Example test that uses dbts unit testing framework, but keeps the logic
+      and asserts all inside the sql. inputs and expects are dummies in the yml.
+      https://github.com/yu-iskw/dbt-unittest
+      Problem is, that we can only test jinja-logic, because evaluations that
+      take place on the backend cannot go back into the jinja-level (which is where
+      the asserts of the dbt-unittest package take place)
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows: []
+    overrides:
+      vars:
+        raise_on_error: false
+    expect:
+      rows:
+        - { all_passed: 1, message: NULL}

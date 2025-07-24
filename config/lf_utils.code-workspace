@@ -1,0 +1,47 @@
+{
+    "folders": [
+        {
+            "path": ".."
+        }
+    ],
+    "settings": {
+        // tell dbt power user and python where the default .env file is
+        "python.envFile": "${workspaceFolder}/config/.env",
+        // make integrated vscode terminals automatically load or .env file
+        // this works through a custom snippet we add to the default users ~/.bashrc
+        // see https://linkfish.slite.com/api/s/xLzFXhcQW3Bd0H/Environment-Variablen-via-env-Files-und-in-vscode
+        "terminal.integrated.env.linux": {
+            "LF_VSCODE_WORKSPACE_ENV_FILE": "${workspaceFolder}/config/.env"
+        },
+        // optionally, set default python interpreter
+        // "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "python.terminal.activateEnvInCurrentTerminal": true,
+        // some sensible dbt power user settings
+        "dbt.queryLimit": 500,
+        "dbt.enableNewLineagePanel": true,
+        "dbt.lineage.defaultExpansion": 2,
+        "dbt.enableCollaboration": false,
+        "dbt.enableNotebooks": false,
+        "dbt.installDepsOnProjectInitialization": false,
+        // "dbt.sqlFmtPath": "/Users/paul/miniforge/envs/py312/bin/sqlfmt",
+        // run `pip install shandy-sqlfmt[jinjafmt]`
+        // and see https://docs.sqlfmt.com/getting-started/installation
+        // (dieses Setting am besten in der eigenen User-Config vornehmen)
+
+        // sql fluff
+        "sqlfluff.config": "${workspaceFolder}/.sqlfluff",
+        // some more sensible defaults
+        "editor.formatOnSave": false,
+        "editor.tabSize": 4,
+        "files.associations": {
+            ".env*": "env",
+            ".credentials*": "env",
+            "*.sql": "jinja-sql"
+        },
+        "github.copilot.enable": {
+            "*": true,
+            "env": false
+        }
+    }
+}

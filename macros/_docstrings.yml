@@ -1,0 +1,23 @@
+# this file is auto-generated. last updated: 2025-07-18 13:55:43
+
+version: 2
+
+macros:
+  - name: left
+    description: '{{ doc("macros__left") }}'
+
+  - name: right
+    description: '{{ doc("macros__right") }}'
+
+  - name: is_numeric
+    description: '{{ doc("macros__is_numeric") }}'
+
+  - name: date_strftime
+    description: '{{ doc("macros__date_strftime") }}'
+
+  - name: camel_to_snake
+    description: '{{ doc("macros__camel_to_snake") }}'
+
+  - name: date_to_string
+    description: '{{ doc("macros__date_to_string") }}'
+

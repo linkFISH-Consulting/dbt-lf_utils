@@ -1,0 +1,23 @@
+unit_tests:
+  - name: ut_is_numeric
+    model: ut_is_numeric
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {text: "123"}
+          - {text: "-456"}
+          - {text: "123.45"}
+          - {text: "abc"}
+          - {text: "123abc"}
+          - {text: ""}
+          - {text: null}
+    expect:
+      rows:
+        - {output: 1}
+        - {output: 1}
+        - {output: 1}
+        - {output: 0}
+        - {output: 0}
+        - {output: 0}
+        - {output: 0}
+

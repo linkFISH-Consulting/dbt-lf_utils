@@ -1,0 +1,16 @@
+unit_tests:
+  - name: ut_position
+    model: ut_position
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows:
+          - {text: "foobar", substring: "bar"}
+          - {text: "foobar", substring: "foo"}
+          - {text: "foobar", substring: "baz"}
+    expect:
+      rows:
+        - {output: 4}
+        - {output: 1}
+        - {output: 0}

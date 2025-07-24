@@ -1,0 +1,20 @@
+unit_tests:
+  - name: ut_left
+    model: ut_left
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows:
+        - {text: "foobar", len: 0 }
+        - {text: "foobar", len: 3}
+        - {text: "foobar", len: 6}
+        - {text: "foobar", len: 10 }
+        # - {text: "foobar", len: -1 }
+        # do we want to support negative lengths?
+    expect:
+      rows:
+        - {output: ""}
+        - {output: "foo"}
+        - {output: "foobar"}
+        - {output: "foobar"}

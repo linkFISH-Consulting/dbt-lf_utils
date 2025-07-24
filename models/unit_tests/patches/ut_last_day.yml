@@ -1,0 +1,20 @@
+unit_tests:
+  - name: ut_last_day
+    model: ut_last_day
+
+    description: |
+      Let's avoid (our custom) eomonth, and use dbt.last_day instead.
+      But this test confirms that last_day works on our backends as expected :)
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows:
+          # the macro cannot read the format from column, so we have to set
+          # inputs in the ut_ sql. however, still need to provide values!
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 01:01:01"}
+    expect:
+      rows:
+        - {output: "2021-01-31"}
+        - {output: "2021-01-31 00:00:00"}
+

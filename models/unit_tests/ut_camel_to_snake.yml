@@ -1,0 +1,17 @@
+unit_tests:
+  - name: ut_camel_to_snake
+    model: ut_camel_to_snake
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows: []
+        # only works with jinja strings, not on the backend!
+        # (adapters often dont support modules.re)
+    expect:
+      rows:
+        - {output: "foo_bar"}
+        - {output: "foo_bar"}
+        - {output: "foo_bar"}
+        - {output: "_foo_bar"}
+        - {output: "foo_bar_id"}

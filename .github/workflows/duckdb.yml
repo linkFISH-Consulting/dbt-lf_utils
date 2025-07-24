@@ -1,0 +1,36 @@
+# This workflow runs our dbt tests using DuckDB for every push and pull request on github.
+name: DuckDB CI
+
+on:
+  push:
+    branches: [ main, ps_early_prep ]
+  pull_request:
+    branches: [ main, ps_early_prep ]
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt dependencies
+        run: |
+          pip install dbt-duckdb
+          dbt deps
+
+      - name: Run dbt test
+        run: |
+          set -a
+          source config/.env.cicd
+          set +a
+          mkdir -p $(dirname $LF_UTILS__DUCKDB_DATAMART_PATH)
+          export DBT_PROFILE=lf_utils_duckdb
+          dbt debug
+          dbt build --select _dummy_source
+          dbt test

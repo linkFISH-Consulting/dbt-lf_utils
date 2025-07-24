@@ -1,0 +1,19 @@
+unit_tests:
+  - name: ut_concat
+    model: ut_concat
+    description: |
+      Example test that uses dbts unit testing framework, but still defines it's
+      inputs in the wrapper model.
+    given:
+      # we cannot skip the input argument, even when we define them manually in
+      # in the model
+      - input: ref('_dummy_source')
+        rows: []
+    # overrides:
+    #   vars:
+    #     input_list: ["foo", "bar", "baz"]
+    expect:
+      rows:
+        - {output: "foobar"}
+        - {output: "foobarbaz"}
+        - {output: "1b c"}

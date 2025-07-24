@@ -1,0 +1,36 @@
+lf_utils_duckdb:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      schema: dev
+      path: "{{ env_var('LF_UTILS__DUCKDB_DATAMART_PATH') }}"
+      threads: 4
+
+lf_utils_postgres:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('LF_UTILS__POSTGRES_HOST') }}"
+      user: "{{ env_var('LF_UTILS__POSTGRES_USER') }}"
+      password: "{{ env_var('LF_UTILS__POSTGRES_PASSWORD') }}"
+      port: "{{ env_var('LF_UTILS__POSTGRES_PORT') | int }}"
+      dbname: "{{ env_var('LF_UTILS__POSTGRES_DATABASE') }}"
+      schema: dev
+      threads: 4
+
+lf_utils_mssql:
+  target: dev
+  outputs:
+    dev:
+      type: sqlserver
+      driver: "ODBC Driver 18 for SQL Server"
+      host: "{{ env_var('LF_UTILS__MSSQL_HOST') }}"
+      user: "{{ env_var('LF_UTILS__MSSQL_USER') }}"
+      password: "{{ env_var('LF_UTILS__MSSQL_PASSWORD') }}"
+      port: "{{ env_var('LF_UTILS__MSSQL_PORT') | int }}"
+      database: "{{ env_var('LF_UTILS__MSSQL_DATABASE') }}"
+      trust_cert: true
+      schema: dev
+      threads: 4
