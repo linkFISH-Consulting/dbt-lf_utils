@@ -23,18 +23,28 @@ jobs:
       - name: Get previous version
         id: previous_version
         run: |
-          # Get the version from the previous commit
-          git checkout HEAD~1 -- dbt_project.yml 2>/dev/null || echo "No previous version found"
-          if [ -f dbt_project.yml ]; then
-            PREV_VERSION=$(grep "^version:" dbt_project.yml | sed "s/version: *'\([^']*\)'/\1/" | tr -d ' ')
+          # Get the version from the last release tag, or from previous commit if no tags exist
+          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+
+          if [ -n "$LAST_TAG" ]; then
+            # Extract version from last tag (remove 'v' prefix if present)
+            PREV_VERSION=$(echo "$LAST_TAG" | sed 's/^v//')
             echo "previous_version=$PREV_VERSION" >> $GITHUB_OUTPUT
-            echo "Previous version: $PREV_VERSION"
+            echo "Previous version from tag: $PREV_VERSION"
           else
-            echo "previous_version=" >> $GITHUB_OUTPUT
-            echo "No previous version found"
+            # Fallback to checking previous commit if no tags exist
+            git checkout HEAD~1 -- dbt_project.yml 2>/dev/null || echo "No previous version found"
+            if [ -f dbt_project.yml ]; then
+              PREV_VERSION=$(grep "^version:" dbt_project.yml | sed "s/version: *'\([^']*\)'/\1/" | tr -d ' ')
+              echo "previous_version=$PREV_VERSION" >> $GITHUB_OUTPUT
+              echo "Previous version from commit: $PREV_VERSION"
+            else
+              echo "previous_version=" >> $GITHUB_OUTPUT
+              echo "No previous version found"
+            fi
+            # Restore current version
+            git checkout HEAD -- dbt_project.yml
           fi
-          # Restore current version
-          git checkout HEAD -- dbt_project.yml
 
       - name: Check if version changed
         id: version_changed
