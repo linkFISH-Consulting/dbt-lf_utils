@@ -1,4 +1,4 @@
-# this file is auto-generated. last updated: 2025-07-18 13:40:46
+# this file is auto-generated. last updated: 2025-07-18 13:55:43
 
 version: 2
 
@@ -8,6 +8,9 @@ macros:
 
   - name: right
     description: '{{ doc("macros__right") }}'
+
+  - name: is_numeric
+    description: '{{ doc("macros__is_numeric") }}'
 
   - name: date_strftime
     description: '{{ doc("macros__date_strftime") }}'
