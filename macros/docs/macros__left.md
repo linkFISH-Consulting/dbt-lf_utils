@@ -19,6 +19,5 @@ lf_utils.left("'any_static_text'", 3)
 ```
 {% endraw %}
 
-.
 
 {% enddocs %}

@@ -98,7 +98,8 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 
 ### Date functions
 
-- `datefromparts` -> use `{{ dbt.date(2023, 10, 4) }}`
+- `datefromparts` -> use `lf_utils.date_from_parts`
+    - `{{ dbt.date(2023, 10, 4) }}` would be nice, but does not support columns as input.
 - `eomonth` -> use `{{ dbt.last_day(date, "month") }}` instead. We here test that it works.
 - `dateadd` -> use `{{ dbt.dateadd(datepart, number, from_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
 - `datediff` -> use `{{ dbt.datediff(datepart, from_date_or_timestamp, to_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.

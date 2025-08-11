@@ -1,10 +1,13 @@
-# this file is auto-generated. last updated: 2025-08-11 13:35:40
+# this file is auto-generated. last updated: 2025-08-11 14:08:26
 
 version: 2
 
 macros:
   - name: left
     description: '{{ doc("macros__left") }}'
+
+  - name: date_from_parts
+    description: '{{ doc("macros__date_from_parts") }}'
 
   - name: get_months
     description: '{{ doc("macros__get_months") }}'

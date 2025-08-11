@@ -28,4 +28,7 @@ select
   cast('' as {{ dbt.type_string() }}) as substring,
   cast('2021-01-01 01:01:01' as {{ dbt.type_timestamp() }}) as datetime_col,
   cast('2021-01-01' as date ) as date_col,
-  0 as len
+  0 as len,
+  cast(2021 as {{ dbt.type_int() }}) as year_col,
+  cast(1 as {{ dbt.type_int() }}) as month_col,
+  cast(1 as {{ dbt.type_int() }}) as day_col
