@@ -46,9 +46,19 @@ endmacrodocs #}
 {%- endmacro %}
 
 {%- macro postgres__date_from_parts(year, month, day) %}
-    to_date('{{year}}-{{month}}-{{day}}', 'YYYY-MM-DD')
+    to_date(
+        cast({{ year }} as int)::text || '-' ||
+        cast({{ month }} as int)::text || '-' ||
+        cast({{ day }} as int)::text,
+        'YYYY-MM-DD'
+    )
 {%- endmacro %}
 
 {%- macro oracle__date_from_parts(year, month, day) %}
-    to_date('{{year}}-{{month}}-{{day}}', 'YYYY-MM-DD')
+    to_date(
+        cast({{ year }} as int) || '-' ||
+        cast({{ month }} as int) || '-' ||
+        cast({{ day }} as int),
+        'YYYY-MM-DD'
+    )
 {%- endmacro %}
