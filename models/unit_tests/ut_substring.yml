@@ -1,0 +1,28 @@
+unit_tests:
+  - name: ut_substring
+    model: ut_substring
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {text: "Input from column", start_col: 7, len: 4}
+    expect:
+      rows:
+        # Test with all column inputs
+        # from "Input from column" starting at position 7 with length 4
+        - {output: "from"}
+        # Test with static string and static positions
+        # from "Static Input"
+        - {output: "Static"}
+        # Test with static string and column positions
+        # from "Static Input" starting at position 7 with length 4
+        - {output: " Inp"}
+        # Test with column string and static positions
+        # from "Input from column" starting at position 7 with length 4
+        - {output: "from"}
+        # Test edge case: extract from middle
+        - {output: "Input"}
+        # Test edge case: extract entire string
+        # (limited by actual string length)
+        - {output: "Static Input"}
+        # Test edge case: single character
+        - {output: "t"}

@@ -1,4 +1,4 @@
-# this file is auto-generated. last updated: 2025-08-11 14:08:26
+# this file is auto-generated. last updated: 2025-08-11 15:01:09
 
 version: 2
 
@@ -23,6 +23,9 @@ macros:
 
   - name: camel_to_snake
     description: '{{ doc("macros__camel_to_snake") }}'
+
+  - name: substring
+    description: '{{ doc("macros__substring") }}'
 
   - name: date_to_string
     description: '{{ doc("macros__date_to_string") }}'
