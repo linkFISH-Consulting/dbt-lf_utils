@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-17 13:19:58
-@Last Modified: 2025-07-18 10:59:50
+@Last Modified: 2025-08-11 13:33:51
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -24,6 +24,7 @@ Only kept for historic reasons, better use `date_strftime`.
 
 # Example
 
+```sql
 -- Convert date to yyyymmdd string
 lf_utils.date_to_string('my_date', 112)
 
@@ -35,6 +36,7 @@ lf_utils.date_to_string('my_date', 104)
 
 -- Get month and year in text format
 lf_utils.date_to_string('my_date', 'MMMM yyyy')
+```
 
 endmacrodocs #}
 

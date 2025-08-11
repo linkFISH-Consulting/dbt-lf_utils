@@ -50,12 +50,23 @@ class TyperLogHandler(logging.Handler):
 app = typer.Typer()
 
 
-def extract_macrodoc_sections(file_path: Path) -> str:
+def extract_macrodoc_sections(file_path: Path):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
         pattern = re.compile(r"\{# macrodocs(.*?)endmacrodocs #\}", re.DOTALL)
         return pattern.findall(content)
 
+
+def fix_code_blocks(raw_content: str) -> str:
+    """
+    Fix code blocks in the raw content by wrapping them in `{% raw %}` and `{% endraw %}`.
+    This is necessary for dbt to correctly parse the markdown.
+    """
+    # Find all code blocks and wrap them
+    code_block_pattern = re.compile(r"```(.*?)```", re.DOTALL)
+    return code_block_pattern.sub(
+        lambda m: "{% raw %}\n" + m.group(0) + "\n{% endraw %}", raw_content
+    )
 
 @app.command()
 def entrypoint(
@@ -93,7 +104,7 @@ def entrypoint(
 
         # Markdown content needs to be wrapped in header and footer so dbt can find it
         output_content = "{% docs " + out_name + " %}\n"
-        output_content += md_sections[0]
+        output_content += fix_code_blocks(md_sections[0])
         output_content += "\n{% enddocs %}"
 
         output_fp = output_dir / (out_name + ".md")
