@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-11 14:31:06
-@Last Modified: 2025-08-11 15:00:54
+@Last Modified: 2025-08-12 12:13:48
 ------------------------------------------------------------------------------ #}
 {# macrodocs
 Extract characters from a string by position.
@@ -34,7 +34,7 @@ select
 endmacrodocs #}
 
 {% macro substring(text, start, len) %}
-    {{ return(adapter.dispatch("substring")(text, start, len)) }}
+    {{ return(adapter.dispatch("substring", "lf_utils")(text, start, len)) }}
 {% endmacro %}
 
 {%- macro duckdb__substring(text, start, len) %}

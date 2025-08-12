@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-11 13:49:30
-@Last Modified: 2025-08-11 14:08:11
+@Last Modified: 2025-08-12 12:49:30
 ------------------------------------------------------------------------------ #}
 {# macrodocs
 
@@ -28,7 +28,7 @@ select
 endmacrodocs #}
 
 {% macro date_from_parts(year, month, day) -%}
-    {{ return(adapter.dispatch("date_from_parts")(year, month, day)) }}
+    {{ return(adapter.dispatch("date_from_parts", "lf_utils")(year, month, day)) }}
 {% endmacro %}
 
 {%- macro default__date_from_parts(year, month, day) -%} {%- endmacro %}

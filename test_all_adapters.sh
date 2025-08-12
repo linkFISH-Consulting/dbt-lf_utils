@@ -13,20 +13,25 @@ adapters="duckdb mssql postgres"
 
 if [ "$run_setup" = true ]; then
   # source the .env to make variables available
-  set -a
-  source config/.env
-  set +a
+  set -a; source config/.env; set +a
   docker compose -f ./docker-compose.yml up -d
+
+  export DBT_PROJECT_DIR=./unit_tests
+  dbt deps
 
   # setup dummy db and debug
   for adapter in $adapters; do
-      dbt debug --profile lf_utils_$adapter;
-      dbt build --profile lf_utils_$adapter --select _dummy_source;
+      export DBT_PROFILE=lf_utils_$adapter
+      dbt debug
+      dbt build --select _dummy_source
   done
 fi
 
 for adapter in $adapters; do
-    dbt test --profile lf_utils_$adapter
+    set -a; source config/.env; set +a
+    export DBT_PROFILE=lf_utils_$adapter
+    export DBT_PROJECT_DIR=./unit_tests
+    dbt test
 done
 
 if [ "$run_setup" = true ]; then

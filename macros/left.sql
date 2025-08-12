@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-16 09:42:05
-@Last Modified: 2025-08-11 13:39:30
+@Last Modified: 2025-08-12 12:49:02
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -25,7 +25,7 @@ lf_utils.left("'any_static_text'", 3)
 endmacrodocs #}
 
 {% macro left(text, len) %}
-    {{ return(adapter.dispatch('left', 'dbt')(text, len)) }}
+    {{ return(adapter.dispatch('left', 'lf_utils')(text, len)) }}
 {% endmacro %}
 
 {%- macro duckdb__left(text, len) %}

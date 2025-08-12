@@ -34,6 +34,7 @@ jobs:
       - name: Install dbt dependencies
         run: |
           pip install dbt-postgres
+          export DBT_PROJECT_DIR=./unit_tests
           dbt deps
 
       - name: Wait for Postgres to be ready
@@ -60,6 +61,7 @@ jobs:
           source config/.env.cicd
           set +a
           export DBT_PROFILE=lf_utils_postgres
+          export DBT_PROJECT_DIR=./unit_tests
           dbt debug
           dbt build --select _dummy_source
           dbt test

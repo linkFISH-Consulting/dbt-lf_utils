@@ -55,6 +55,7 @@ jobs:
       - name: Install dbt dependencies
         run: |
           pip install dbt-sqlserver
+          export DBT_PROJECT_DIR=./unit_tests
           dbt deps
 
       - name: Wait for MSSQL to be ready
@@ -79,6 +80,7 @@ jobs:
           source config/.env.cicd
           set +a
           export DBT_PROFILE=lf_utils_mssql
+          export DBT_PROJECT_DIR=./unit_tests
           dbt debug
           dbt build --select _dummy_source
           dbt test
