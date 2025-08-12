@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-17 15:49:52
-@Last Modified: 2025-07-18 10:56:35
+@Last Modified: 2025-08-11 13:33:31
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -29,7 +29,9 @@ TODO: Think about localisation (Month names)
         Note, index starts at 0, not 1.
 
 # Example
-lf_utils.date_strftime('my_date', '%Y%m%d')
+```sql
+{{ lf_utils.date_strftime('my_date', '%Y%m%d')}}
+```
 
 endmacrodocs #}
 

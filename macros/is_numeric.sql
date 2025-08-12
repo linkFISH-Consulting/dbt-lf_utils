@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-18 13:46:56
-@Last Modified: 2025-07-18 14:47:46
+@Last Modified: 2025-08-11 13:34:35
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -12,9 +12,10 @@ Check if a string can be safely cast to a number.
 - text : string or string column
 
 # Example
-
+```sql
 lf_utils.is_numeric("'123'") --> True
 lf_utils.is_numeric("'123a'") --> False
+```
 
 # Notes
 - To be consistent with mssql and some others, we return 0 or 1, not booleans.

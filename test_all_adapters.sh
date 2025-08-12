@@ -20,12 +20,13 @@ if [ "$run_setup" = true ]; then
 
   # setup dummy db and debug
   for adapter in $adapters; do
-      DBT_PROFILE=lf_utils_$adapter; dbt debug; dbt build --select _dummy_source;
+      dbt debug --profile lf_utils_$adapter;
+      dbt build --profile lf_utils_$adapter --select _dummy_source;
   done
 fi
 
 for adapter in $adapters; do
-    DBT_PROFILE=lf_utils_$adapter; dbt test;
+    dbt test --profile lf_utils_$adapter
 done
 
 if [ "$run_setup" = true ]; then

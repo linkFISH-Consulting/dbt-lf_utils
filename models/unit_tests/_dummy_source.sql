@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-14 11:22:02
-@Last Modified: 2025-07-18 13:09:39
+@Last Modified: 2025-08-11 14:45:13
 
 This is a dummy source, which has to be build before running any tests.
 dbt build --select _dummy_source
@@ -28,4 +28,8 @@ select
   cast('' as {{ dbt.type_string() }}) as substring,
   cast('2021-01-01 01:01:01' as {{ dbt.type_timestamp() }}) as datetime_col,
   cast('2021-01-01' as date ) as date_col,
-  0 as len
+  0 as len,
+  cast(1 as {{ dbt.type_int() }}) as start_col,
+  cast(2021 as {{ dbt.type_int() }}) as year_col,
+  cast(1 as {{ dbt.type_int() }}) as month_col,
+  cast(1 as {{ dbt.type_int() }}) as day_col

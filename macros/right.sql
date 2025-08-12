@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-18 13:31:58
-@Last Modified: 2025-07-18 13:38:45
+@Last Modified: 2025-08-11 13:35:14
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -14,16 +14,18 @@ Take the rightmost n characters of a string-column.
     Column holding a number, or a number. Cannot be negative.
 
 # Example
-
+```sql
 -- text column
 lf_utils.right('text', 3)
 
 -- static text
 lf_utils.right("'any_static_text'", 10)
+```
 
 # Notes
 - This is just a thin wrapper around `dbt.right()`, because
-they chose to not implement left, but its convenient to use left and right from the same namespace (our lf_utils)
+they chose to not implement left, but its convenient to use left and right from the same
+namespace (our lf_utils)
 
 endmacrodocs #}
 

@@ -1,21 +1,23 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-17 09:28:33
-@Last Modified: 2025-07-17 11:05:08
+@Last Modified: 2025-08-11 13:27:17
 ------------------------------------------------------------------------------ #}
 
 
 {# macrodocs
 Generate snake_case from inconsistently cased strings like 'bdgmPersID_Monat'
 
-Only works on the jinja side, DO NOT pass a column as the argument!
+Only works on the jinja side, **do not** pass a column as the argument!
 
 # Arguments
 - text : string
 
 # Example
 
-lf_utils.camel_to_snake("bdgmPersID_Monat")
+```sql
+{{ lf_utils.camel_to_snake("bdgmPersID_Monat") }}
+```
 
 endmacrodocs #}
 

@@ -1,0 +1,19 @@
+unit_tests:
+  - name: ut_date_from_parts
+    model: ut_date_from_parts
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {year_col: 2021, month_col: 3, day_col: 15}
+    expect:
+      rows:
+        # Test with column inputs
+        - {output: "2021-03-15"}
+        # Test with direct integer inputs
+        - {output: "2023-12-25"}
+        # Test with mixed inputs
+        - {output: "2021-06-15"}
+        # Test leap year
+        - {output: "2024-02-29"}
+        # Test last day of year
+        - {output: "2023-12-31"}

@@ -24,7 +24,11 @@ TODO: Think about localisation (Month names)
         Note, index starts at 0, not 1.
 
 # Example
-lf_utils.date_strftime('my_date', '%Y%m%d')
+{% raw %}
+```sql
+{{ lf_utils.date_strftime('my_date', '%Y%m%d')}}
+```
+{% endraw %}
 
 
 {% enddocs %}

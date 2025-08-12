@@ -1,10 +1,16 @@
-# this file is auto-generated. last updated: 2025-07-18 13:55:43
+# this file is auto-generated. last updated: 2025-08-11 15:01:09
 
 version: 2
 
 macros:
   - name: left
     description: '{{ doc("macros__left") }}'
+
+  - name: date_from_parts
+    description: '{{ doc("macros__date_from_parts") }}'
+
+  - name: get_months
+    description: '{{ doc("macros__get_months") }}'
 
   - name: right
     description: '{{ doc("macros__right") }}'
@@ -17,6 +23,9 @@ macros:
 
   - name: camel_to_snake
     description: '{{ doc("macros__camel_to_snake") }}'
+
+  - name: substring
+    description: '{{ doc("macros__substring") }}'
 
   - name: date_to_string
     description: '{{ doc("macros__date_to_string") }}'

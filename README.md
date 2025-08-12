@@ -1,5 +1,7 @@
 This [dbt](https://github.com/dbt-labs/dbt) package contains macros that can be (re)used across dbt projects.
 
+For latest changes, see the [CHANGELOG](CHANGELOG.md).
+
 ## Supported Adapters:
 
 - [x] postgres
@@ -83,6 +85,16 @@ There is already an object named 'ut_date_strftime__dbt_tmp' in the database.
 ## Developing
 
 
+### Custom Macros
+- Our custom macros live direclty in the `macros` folder.
+- Each macro has one or more unit tests in `models/unit_tests`.
+- Tests mostly consist of a `.yml` specifying inputs and expected outputs, and a `.sql` that defines the test logic.
+- Most tests rely on the `_dummy_source` model, which is a mock table with a few columns and rows that is needed to define the schema of _potential_ inputs. (It's a dbt limitation we have to live with.)
+
+### Patches
+- In some cases, we need to add dispatch functions to make other tools work on all our backends.
+- The main use case is to make functions from dbt utils work on mssql.
+- These dispatch functions live under `macros/patches` with tests in `models/unit_tests/patches`.
 
 ### Guidelines:
 - Let's not add default adapters. This helps catching errors early, already when developing, and not only running the model and finding broken data.
@@ -98,7 +110,8 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 
 ### Date functions
 
-- `datefromparts` -> use `{{ dbt.date(2023, 10, 4) }}`
+- `datefromparts` -> use `lf_utils.date_from_parts`
+    - `{{ dbt.date(2023, 10, 4) }}` would be nice, but does not support columns as input.
 - `eomonth` -> use `{{ dbt.last_day(date, "month") }}` instead. We here test that it works.
 - `dateadd` -> use `{{ dbt.dateadd(datepart, number, from_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
 - `datediff` -> use `{{ dbt.datediff(datepart, from_date_or_timestamp, to_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.

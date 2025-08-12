@@ -19,6 +19,8 @@ Only kept for historic reasons, better use `date_strftime`.
 
 # Example
 
+{% raw %}
+```sql
 -- Convert date to yyyymmdd string
 lf_utils.date_to_string('my_date', 112)
 
@@ -30,6 +32,8 @@ lf_utils.date_to_string('my_date', 104)
 
 -- Get month and year in text format
 lf_utils.date_to_string('my_date', 'MMMM yyyy')
+```
+{% endraw %}
 
 
 {% enddocs %}

@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-18 14:46:33
-@Last Modified: 2025-07-18 16:16:16
+@Last Modified: 2025-08-11 14:15:06
 ------------------------------------------------------------------------------ #}
 {# macrodocs
 
@@ -23,13 +23,13 @@
     - letzter_tag : date (date of the last day of the month)
 
 # Example
-
+```sql
 with months as (
-    [[ lf_utils.get_months(2023, 2025) ]]  --> replace square braces with jinja braces !!!
+    {{ lf_utils.get_months(2023, 2025) }}
 )
 select * from months
---> gives a cross join of all months from jan 2023 to jan 2025
-
+-- gives a cross-join of all months from jan 2023 to dez 2025
+```
 
 # Notes
 - on ms sql server, we have to use master..spt_values, which can only provide ~ 2k rows.
