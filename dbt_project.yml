@@ -1,5 +1,5 @@
 name: 'lf_utils'
-version: '0.2.0'
+version: '0.2.1'
 require-dbt-version: [">=1.5.0", "<2.0.0"]
 
 profile: 'lf_utils_duckdb'
@@ -15,6 +15,7 @@ log-path: "logs"
 
 flags:
   send_anonymous_usage_stats: false
+  use_colors: True
 
 vars:
   raise_on_error: false
