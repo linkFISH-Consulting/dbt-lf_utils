@@ -23,5 +23,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   initial commit
 
-[0.2.0]: https://github.com/linkFISH-Consulting/dbt-lf_utils/blob/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/linkFISH-Consulting/dbt-lf_utils/blob/compare/v0.1.0
+[0.2.0]: https://github.com/linkFISH-Consulting/dbt-lf_utils/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/linkFISH-Consulting/dbt-lf_utils/compare/v0.1.0
