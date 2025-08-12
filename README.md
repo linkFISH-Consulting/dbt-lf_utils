@@ -53,12 +53,14 @@ mkdir -p $(dirname $LF_UTILS__DUCKDB_DATAMART_PATH)
 
 - run tests:
 ```bash
+# tests live in their own dbt project (this is a hard requirement of dbt)
+export DBT_PROJECT_DIR=./unit_tests
 dbt debug
 dbt build --select _dummy_source
 dbt test
 
 # one-liner
-DBT_PROFILE=lf_utils_mssql; dbt debug; dbt build --select _dummy_source; dbt test
+DBT_PROFILE=lf_utils_mssql; DBT_PROJECT_DIR=./unit_tests; dbt debug; dbt build --select _dummy_source; dbt test
 ```
 
 - stop db servers:
@@ -87,14 +89,14 @@ There is already an object named 'ut_date_strftime__dbt_tmp' in the database.
 
 ### Custom Macros
 - Our custom macros live direclty in the `macros` folder.
-- Each macro has one or more unit tests in `models/unit_tests`.
+- Each macro has one or more unit tests in `unit_tests/models`.
 - Tests mostly consist of a `.yml` specifying inputs and expected outputs, and a `.sql` that defines the test logic.
-- Most tests rely on the `_dummy_source` model, which is a mock table with a few columns and rows that is needed to define the schema of _potential_ inputs. (It's a dbt limitation we have to live with.)
+- Most tests rely on the `unit_tests/models/_dummy_source` model, which is a mock table with a few columns and rows that is needed to define the schema of _potential_ inputs. (It's a dbt limitation we have to live with.)
 
 ### Patches
 - In some cases, we need to add dispatch functions to make other tools work on all our backends.
 - The main use case is to make functions from dbt utils work on mssql.
-- These dispatch functions live under `macros/patches` with tests in `models/unit_tests/patches`.
+- These dispatch functions live under `macros/patches` with tests in `unit_tests/models/patches`.
 
 ### Guidelines:
 - Let's not add default adapters. This helps catching errors early, already when developing, and not only running the model and finding broken data.
