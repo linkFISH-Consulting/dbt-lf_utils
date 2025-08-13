@@ -1,4 +1,4 @@
-# this file is auto-generated. last updated: 2025-08-11 15:01:09
+# this file is auto-generated. last updated: 2025-08-13 17:35:26
 
 version: 2
 
@@ -15,6 +15,9 @@ macros:
   - name: right
     description: '{{ doc("macros__right") }}'
 
+  - name: month
+    description: '{{ doc("macros__month") }}'
+
   - name: is_numeric
     description: '{{ doc("macros__is_numeric") }}'
 
@@ -23,6 +26,9 @@ macros:
 
   - name: camel_to_snake
     description: '{{ doc("macros__camel_to_snake") }}'
+
+  - name: year
+    description: '{{ doc("macros__year") }}'
 
   - name: substring
     description: '{{ doc("macros__substring") }}'

@@ -1,0 +1,14 @@
+unit_tests:
+  - name: ut_year
+    model: ut_year
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 01:01:01"}
+    expect:
+      rows:
+        # is integer test
+        - {output: 1}
+        # value checks
+        - {output: 2021}
+        - {output: 2021}
