@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-13 16:08:21
-@Last Modified: 2025-08-14 10:17:06
+@Last Modified: 2025-08-14 10:46:36
 ------------------------------------------------------------------------------ #}
 
 {# TODO: add Tests. PS 2025-08-14: no clue how to do this,
@@ -28,7 +28,12 @@ Create a nonclustered index.
 - [SO on non-clustered includes](https://stackoverflow.com/questions/1307990/why-use-the-include-clause-when-creating-an-index)
 
 endmacrodocs #}
-    {{ return(adapter.dispatch("create_nonclustered_index", "lf_utils")(columns, includes)) }}
+{% macro create_nonclustered_index(columns, includes = []) %}
+    {{
+        return(
+            adapter.dispatch("create_nonclustered_index", "lf_utils")(columns, includes)
+        )
+    }}
 {% endmacro %}
 
 {%- macro postgres__create_nonclustered_index(columns, includes) %}
