@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - Upcoming
+
+### Added
+-   macros: `create_nonclustered_index` and `drop_index`
+-   macros: `year` and `month` to extract as integer from a date
+-   macros: `dbt__generate_schema_name` and `dbt__generate_alias_name` for our default renames (during materialization). Dont need to be called by the user, dbt should do this automatically. Might have to check the [dispatch search order](https://docs.getdbt.com/reference/dbt-jinja-functions/dispatch#overriding-global-macros).
+
 ## [0.2.1] - 2025-08-12
 
 ### Fixed
@@ -30,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   initial commit
 
+[0.2.2]: https://github.com/linkFISH-Consulting/dbt-lf_utils/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/linkFISH-Consulting/dbt-lf_utils/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/linkFISH-Consulting/dbt-lf_utils/compare/v0.1.0...v0.2.0
 

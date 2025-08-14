@@ -1,7 +1,7 @@
 {# fixes macro for mssql
 https://github.com/dbt-labs/dbt-utils/blob/main/macros/generic_tests/at_least_one.sql #}
 
-{# still need a test for the test ... #}
+{# TODO: no tests yet #}
 
 {% macro sqlserver__test_at_least_one(model, column_name, group_by_columns) %}
 

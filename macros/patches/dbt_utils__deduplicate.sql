@@ -6,7 +6,7 @@ https://github.com/dbt-labs/dbt-utils?tab=readme-ov-file#deduplicate-source
 
 #}
 
-{# FIXME: NO TESTS YET #}
+{# TODO: no tests yet #}
 
 {%- macro sqlserver__deduplicate(relation, partition_by, order_by) -%}
 

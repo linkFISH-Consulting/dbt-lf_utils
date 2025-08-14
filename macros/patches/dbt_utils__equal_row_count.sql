@@ -1,3 +1,5 @@
+{# TODO: no tests yet #}
+
 {% macro sqlserver__test_equal_rowcount(model, compare_model, group_by_columns) %}
 
 {#-- Needs to be set at parse time, before we return '' below --#}

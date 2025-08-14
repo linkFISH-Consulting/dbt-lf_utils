@@ -87,6 +87,8 @@ There is already an object named 'ut_date_strftime__dbt_tmp' in the database.
 ## Developing
 
 
+TODO @PS: should add a note that we override dbts schema and alias naming macros
+
 ### Custom Macros
 - Our custom macros live direclty in the `macros` folder.
 - Each macro has one or more unit tests in `unit_tests/models`.
@@ -117,7 +119,8 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 - `eomonth` -> use `{{ dbt.last_day(date, "month") }}` instead. We here test that it works.
 - `dateadd` -> use `{{ dbt.dateadd(datepart, number, from_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
 - `datediff` -> use `{{ dbt.datediff(datepart, from_date_or_timestamp, to_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
-- `year` -> use `{{ lf_utils.date_strftime(date, "%Y") }}` instead. Cast to int via `cast({{ lf_utils.date_strftime(date, "%Y")) }}, dbt.type_int() }}`
+- `year` -> `{{ lf_utils.year }}` (there is also `{{ lf_utils.month }}`)
+    - also consider `{{ lf_utils.date_strftime(date, "%Y") }}` for advanced use cases. Cast to int via `cast({{ lf_utils.date_strftime(date, "%Y")) }}, dbt.type_int() }}`
 
 ### Strings
 - `charindex` -> use `{{ dbt.position(substring, text) }}` instead.
