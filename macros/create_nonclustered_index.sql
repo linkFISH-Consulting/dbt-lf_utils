@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-13 16:08:21
-@Last Modified: 2025-08-14 10:46:36
+@Last Modified: 2025-08-14 11:01:13
 ------------------------------------------------------------------------------ #}
 
 {# TODO: add Tests. PS 2025-08-14: no clue how to do this,
@@ -50,10 +50,11 @@ endmacrodocs #}
 {%- endmacro %}
 
 {%- macro duckdb__create_nonclustered_index(columns, includes) %}
+    {# DuckDB seems mostly fine without indices! #}
     {# DuckDB create index syntax (no include clause support) #}
-    create index
+    {# create index
         {{ this.table }}__index_on_{{ columns | join("_") }}
-    on {{ this }} ({{ columns | join(", ") }})
+    on {{ this }} ({{ columns | join(", ") }}) #}
 {%- endmacro %}
 
 {%- macro sqlserver__create_nonclustered_index(columns, includes) %}

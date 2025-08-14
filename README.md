@@ -128,6 +128,8 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 - `len` -> use `{{ dbt.length(string) }}` instead. Not tested yet.
 - `left` -> use `{{ lf_utils.left(text, len) }}`
 - `right` -> use `{{ lf_utils.right(text, len) }}` (wrapper around `dbt.right()`. Somehow they only implement `right` but not `left` but it makes sense to have the same syntax for both)
+- `lpad` -> `lf_utils.lpad()`
+   Note: in the edge case of `length` being shorter than the string, this behaves different than our old version (which truncated from the left). We now truncate from the right - consistent with `lpad` in postgres and duckdb. (`foobar` with lpad to length 3 now becomes `foo`).
 
 ### Casting
 
@@ -138,6 +140,12 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
     Ideally, we avoid using this -> dbt.safe_cast does not work with postgres.
     TODO: Maybe add a custom `try_cast` macro for us and make it wrap safe_cast?
     For PG, could add manual checks for a bunch of types and then use normal cast?
+    See `is_int`, since this seems to be our mos common use case.
+    Note @MB: If columns are assumed to hold integers, they should be of integer type,
+    and we catch the problem earlier...
+    IMHO only in mart layers we want to have columns that hold 99.9% integers as strings,
+    with only a few replacement chars to give board its workaround
+    for displaying `null` values.
 
 ## Learnings
 
