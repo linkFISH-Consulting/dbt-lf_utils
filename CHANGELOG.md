@@ -7,7 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.2] - Upcoming
 
+### Fixed
+-   The `generate_docs_from_macrodoc.py` script now extracts the macro name, needed for dbt overwrites (in the patches folder) and handles generic tests
+
 ### Added
+-   The `generate_docs_from_macrodoc.py` script now allows extra characters
+    around the jinja in/out snippets to allow visual dividiers (see `period_shift_is_consistent.sql` for an example)
+-   generic_test: `period_shift_is_consistent`
+-   macro: `is_int`, to check if a column can be cast to int.
+    gives a 1 or 0, uses regex if possible (cos postgres)
+-   macro: `lpad` to left pad a string with a character.
+    Note: in the edge case of `length` being shorter than the string, this behaves different than our old version (which truncated from the left). We now truncate from the right - consistent with `lpad` in postgres and duckdb. (`foobar` with length 3 becomes `foo` instead of `bar`).
 -   macros: `create_nonclustered_index` and `drop_index`
 -   macros: `year` and `month` to extract as integer from a date
 -   macros: `dbt__generate_schema_name` and `dbt__generate_alias_name` for our default renames (during materialization). Dont need to be called by the user, dbt should do this automatically. Might have to check the [dispatch search order](https://docs.getdbt.com/reference/dbt-jinja-functions/dispatch#overriding-global-macros).
