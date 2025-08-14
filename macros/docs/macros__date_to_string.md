@@ -1,5 +1,4 @@
 {% docs macros__date_to_string %}
-
 Convert a date column into a string representation, using MSSQL date format codes.
 
 # Deprication Notice
@@ -35,5 +34,7 @@ lf_utils.date_to_string('my_date', 'MMMM yyyy')
 ```
 {% endraw %}
 
+# Notes
+- Consider using `lf_utils.date_strftime` for more flexible date formatting.
 
 {% enddocs %}

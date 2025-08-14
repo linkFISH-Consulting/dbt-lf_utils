@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-01-20
-@Last Modified: 2025-08-14 16:34:21
+@Last Modified: 2025-08-14 16:44:27
 ------------------------------------------------------------------------------ #}
 
 {# TODO: no tests yet #}
@@ -91,10 +91,10 @@ dummy_data_1 as (
         new code via dbt tested with yyyymm, not working with duckdb
         {{ dbt.safe_cast(date_col, api.Column.translate_type("date")) }} as __date
         #}
-        {{ datefromparts(
-            y=dbt.cast(left(date_col, 4), dbt.type_int()),
-            m=dbt.cast(right(date_col, 2), dbt.type_int()),
-            d=1
+        {{ lf_utils.date_from_parts(
+            year=dbt.cast(lf_utils.left(date_col, 4), dbt.type_int()),
+            month=dbt.cast(lf_utils.right(date_col, 2), dbt.type_int()),
+            day=1
         ) }} as __date
 
     from {{ model }}

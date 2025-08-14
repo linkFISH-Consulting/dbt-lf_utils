@@ -1,5 +1,4 @@
 {% docs macros__date_strftime %}
-
 A cross-backend macro to format dates using strftime-like format strings.
 Supports DuckDB, Postgres, and MSSQL (limited patterns).
 
@@ -29,6 +28,5 @@ TODO: Think about localisation (Month names)
 {{ lf_utils.date_strftime('my_date', '%Y%m%d')}}
 ```
 {% endraw %}
-
 
 {% enddocs %}

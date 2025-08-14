@@ -1,5 +1,4 @@
 {% docs macros__camel_to_snake %}
-
 Generate snake_case from inconsistently cased strings like 'bdgmPersID_Monat'
 
 Only works on the jinja side, **do not** pass a column as the argument!
@@ -14,6 +13,5 @@ Only works on the jinja side, **do not** pass a column as the argument!
 {{ lf_utils.camel_to_snake("bdgmPersID_Monat") }}
 ```
 {% endraw %}
-
 
 {% enddocs %}
