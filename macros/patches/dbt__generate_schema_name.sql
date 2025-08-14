@@ -1,0 +1,38 @@
+{# ------------------------------------------------------------------------------
+@Author:        F. Paul Spitzner
+@Created:       2025-08-13 16:08:21
+@Last Modified: 2025-08-14 10:10:20
+------------------------------------------------------------------------------ #}
+
+{# TODO: no tests yet #}
+
+{# macrodocs
+
+**Automatically invoked by dbt**, does not need to be called.
+[Check disptach search order](https://docs.getdbt.com/reference/dbt-jinja-functions/dispatch#overriding-global-macros)
+
+This macro prepends the target as a prefix for to the schema of tables and views
+that will materialize in the database - for all targets except 'prod'.
+
+In particular, the dev target gets a dev_ prefix, while the prod target is NOT prefixed
+
+endmacrodocs #}
+
+{% macro generate_schema_name(custom_schema_name, node) -%}
+
+    {%- set default_schema = target.schema -%}
+    {%- if target.name == 'prod' -%}
+        {{ custom_schema_name | trim }}
+
+    {%- else -%}
+        {%- if custom_schema_name is none -%}
+
+            {{ default_schema }}
+
+        {%- else -%}
+
+            {{ default_schema }}_{{ custom_schema_name | trim }}
+
+        {%- endif -%}
+    {%- endif -%}
+{%- endmacro %}

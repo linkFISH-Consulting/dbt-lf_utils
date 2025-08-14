@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.2] - Upcoming
 
 ### Added
--   macro: `month` to extract the month as an integer from a date
--   macro: `year` to extract the year as an integer from a date
+-   macros: `create_nonclustered_index` and `drop_index`
+-   macros: `year` and `month` to extract as integer from a date
+-   macros: `dbt__generate_schema_name` and `dbt__generate_alias_name` for our default renames (during materialization). Dont need to be called by the user, dbt should do this automatically. Might have to check the [dispatch search order](https://docs.getdbt.com/reference/dbt-jinja-functions/dispatch#overriding-global-macros).
 
 ## [0.2.1] - 2025-08-12
 

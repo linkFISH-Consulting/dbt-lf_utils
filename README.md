@@ -87,6 +87,8 @@ There is already an object named 'ut_date_strftime__dbt_tmp' in the database.
 ## Developing
 
 
+TODO @PS: should add a note that we override dbts schema and alias naming macros
+
 ### Custom Macros
 - Our custom macros live direclty in the `macros` folder.
 - Each macro has one or more unit tests in `unit_tests/models`.
