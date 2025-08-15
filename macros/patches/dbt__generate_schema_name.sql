@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-13 16:08:21
-@Last Modified: 2025-08-14 10:10:20
+@Last Modified: 2025-08-15 11:58:53
 ------------------------------------------------------------------------------ #}
 
 {# TODO: no tests yet #}
@@ -19,6 +19,8 @@ In particular, the dev target gets a dev_ prefix, while the prod target is NOT p
 endmacrodocs #}
 
 {% macro generate_schema_name(custom_schema_name, node) -%}
+
+    {{ log("Using lf_utils.generate_schema_name", info=True) }}
 
     {%- set default_schema = target.schema -%}
     {%- if target.name == 'prod' -%}
