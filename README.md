@@ -2,6 +2,35 @@ This [dbt](https://github.com/dbt-labs/dbt) package contains macros that can be 
 
 For latest changes, see the [CHANGELOG](CHANGELOG.md).
 
+## Installation
+
+Add the following to your `packages.yml`:
+
+```yaml
+packages:
+  - git: "https://github.com/linkFISH-Consulting/dbt-lf_utils.git"
+    # comes with dbt_utils as a dependency, so you do not need to add it separately!
+    revision: v0.2.2
+    # as revision you can specify a released version, tag, or branch.
+    # Pinning versions is good to make sure no breaking changes are introduced automatically.
+    # During development of a content package, it might be good to use your dev branch
+    # to quickly iterate between both projects (if working on lf_utils features).
+```
+
+Then run:
+```bash
+dbt deps
+```
+
+And macros should be available in your dbt project under the `lf_utils` namespace.
+
+```sql
+select
+    {{ lf_utils.left("my_text_col", 3) }} as output_col
+from my_table
+```
+
+
 ## Supported Adapters:
 
 - [x] postgres
@@ -121,6 +150,7 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 - `datediff` -> use `{{ dbt.datediff(datepart, from_date_or_timestamp, to_date_or_timestamp) }}` instead. We here test that it works for dateparts `day`, `month`, `year`.
 - `year` -> `{{ lf_utils.year }}` (there is also `{{ lf_utils.month }}`)
     - also consider `{{ lf_utils.date_strftime(date, "%Y") }}` for advanced use cases. Cast to int via `cast({{ lf_utils.date_strftime(date, "%Y")) }}, dbt.type_int() }}`
+- to get current year: `{{ modules.datetime.datetime.now().year }}` or `{{ lf_utils.year('CURRENT_TIMESTAMP') }}`, since `current_timestamp` seems to be well supported across adapters.
 
 ### Strings
 - `charindex` -> use `{{ dbt.position(substring, text) }}` instead.
