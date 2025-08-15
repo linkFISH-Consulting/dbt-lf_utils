@@ -13,6 +13,12 @@ macro-paths: ["macros"]
 model-paths: ["models"]
 log-path: "logs"
 
+dispatch:
+  - macro_namespace: dbt
+    search_order: ['lf_utils', 'dbt']
+  - macro_namespace: dbt_utils
+    search_order: ['lf_utils', 'dbt_utils']
+
 flags:
   send_anonymous_usage_stats: false
   use_colors: True

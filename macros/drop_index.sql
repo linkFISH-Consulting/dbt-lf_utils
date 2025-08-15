@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-13 16:08:21
-@Last Modified: 2025-08-14 10:17:13
+@Last Modified: 2025-08-14 10:56:52
 ------------------------------------------------------------------------------ #}
 
 {# TODO: needs tests! #}
@@ -12,8 +12,6 @@
 {% macro drop_index(columns) %}
     {{ return(adapter.dispatch("drop_index", "lf_utils")(columns)) }}
 {% endmacro %}
-
-{%- macro default__drop_index(columns) %} {%- endmacro %}
 
 {%- macro duckdb__drop_index(columns) %}
    drop index if exists {{ this.table }}__index_on_{{ columns|join("_") }};

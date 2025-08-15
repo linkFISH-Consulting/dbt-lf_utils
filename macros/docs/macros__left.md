@@ -1,5 +1,4 @@
 {% docs macros__left %}
-
 Take the leftmost n characters of a string-column.
 
 # Arguments
@@ -18,6 +17,5 @@ lf_utils.left('text', 3)
 lf_utils.left("'any_static_text'", 3)
 ```
 {% endraw %}
-
 
 {% enddocs %}

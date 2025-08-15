@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-13 16:08:21
-@Last Modified: 2025-08-14 10:10:20
+@Last Modified: 2025-08-15 13:01:51
 ------------------------------------------------------------------------------ #}
 
 {# TODO: no tests yet #}
@@ -18,7 +18,13 @@ In particular, the dev target gets a dev_ prefix, while the prod target is NOT p
 
 endmacrodocs #}
 
-{% macro generate_schema_name(custom_schema_name, node) -%}
+{% macro default__generate_schema_name(custom_schema_name, node) -%}
+    {# For the overwrite to work, we _need_ the `default__` prefix.
+    For details, see issue #10:
+    https://github.com/linkFISH-Consulting/dbt-lf_utils/issues/10
+    #}
+
+    {# {{ log("Using lf_utils.generate_schema_name", info=True) }} #}
 
     {%- set default_schema = target.schema -%}
     {%- if target.name == 'prod' -%}

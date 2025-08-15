@@ -1,6 +1,5 @@
 {% docs macros__date_from_parts %}
 
-
 Create a date from year, month, day. In contrast to dbt.date,
 this can take integers, but also columns as input.
 
@@ -22,6 +21,5 @@ select
     {{ lf_utils.date_from_parts("year_col", "month_col", "day_col") }} as via_columns
 ```
 {% endraw %}
-
 
 {% enddocs %}

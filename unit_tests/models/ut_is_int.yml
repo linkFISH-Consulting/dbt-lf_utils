@@ -1,0 +1,28 @@
+unit_tests:
+  - name: ut_is_int
+    model: ut_is_int
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {text: "123"}
+          - {text: "-456"}
+          - {text: "+789"}
+          - {text: "0"}
+          - {text: "-0"}
+          - {text: "123.45"}
+          - {text: "abc"}
+          - {text: "123abc"}
+          - {text: ""}
+          - {text: null}
+    expect:
+      rows:
+        - {output: 1}
+        - {output: 1}
+        - {output: 1}
+        - {output: 1}
+        - {output: 1}
+        - {output: 0}
+        - {output: 0}
+        - {output: 0}
+        - {output: 0}
+        - {output: 0}

@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-01-09
-@Last Modified: 2025-08-14 10:10:20
+@Last Modified: 2025-08-15 13:05:00
 ------------------------------------------------------------------------------ #}
 
 {# TODO: no tests yet #}
@@ -21,7 +21,13 @@ Overwrite the default way dbt generates the alias from the model file name.
 
 endmacrodocs #}
 
-{% macro generate_alias_name(custom_alias_name=none, node=none) -%}
+{% macro default__generate_alias_name(custom_alias_name=none, node=none) -%}
+    {# For the overwrite to work, we _need_ the `default__` prefix.
+    For details, see issue #10:
+    https://github.com/linkFISH-Consulting/dbt-lf_utils/issues/10
+    #}
+
+    {# {{ log("Using lf_utils.generate_alias_name", info=True) }} #}
 
     {% set custom_node_name = node.name[node.name.find('__') + 2:] if '__' in node.name else node.name %}
 

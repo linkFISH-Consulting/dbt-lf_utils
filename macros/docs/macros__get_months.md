@@ -1,6 +1,5 @@
 {% docs macros__get_months %}
 
-
 # Arguments
 - start_year : integer
     The year to start from, inclusive
@@ -32,6 +31,5 @@ select * from months
 # Notes
 - on ms sql server, we have to use master..spt_values, which can only provide ~ 2k rows.
   to be 100% sure, add a dbt test that the last year is what you expect.
-
 
 {% enddocs %}
