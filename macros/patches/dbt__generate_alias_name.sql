@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-01-09
-@Last Modified: 2025-08-15 11:28:13
+@Last Modified: 2025-08-15 13:01:39
 ------------------------------------------------------------------------------ #}
 
 {# TODO: no tests yet #}
@@ -21,7 +21,7 @@ Overwrite the default way dbt generates the alias from the model file name.
 
 endmacrodocs #}
 
-{% macro generate_alias_name(custom_alias_name=none, node=none) -%}
+{% macro default__generate_alias_name(custom_alias_name=none, node=none) -%}
 
     {{ log("Using lf_utils.generate_alias_name", info=True) }}
 
