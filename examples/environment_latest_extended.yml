@@ -1,0 +1,45 @@
+# create env via:
+# conda env create -f environment.yml -n my_env_name
+name: dbt_playground
+channels:
+  - conda-forge
+dependencies:
+  # mit 3.13 gibt es noch probleme bei unseren pip paketen
+  - python=3.12
+  # essentials für viele unserer projekte und ein paar nice to haves
+  # hier sollten die aktuellsten Versionen okay sein.
+  # wenn möglich (insbesondere für schwere) pakete via conda installieren, nicht pip.
+  - setuptools
+  - wheel
+  - numpy
+  - scipy
+  - scikit-learn
+  # database libs
+  - pandas
+  - polars
+  - sqlalchemy
+  - pyarrow
+  - pyodbc
+  # für unsere python cli tools benötigt
+  - python-dotenv
+  - typer
+  # plotting
+  - matplotlib
+  - plotly
+  - seaborn
+  # notebooks
+  - jupyter
+  - ipykernel
+  - jupyterlab
+  - nbstripout
+  - quarto
+  # pip und dbt
+  - pip
+  - pip:
+    # ms sql server adapter bisher offiziell nur kompatible mit dbt-core 1.9.*
+    # aber in ersten tests mit dbt 1.10.* lief es auch.
+    - dbt-core
+    - dbt-duckdb
+    - dbt-sqlserver
+    - dbt-postgres
+    - sling

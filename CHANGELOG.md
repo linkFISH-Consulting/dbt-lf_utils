@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   The `generate_docs_from_macrodoc.py` script now extracts the macro name, needed for dbt overwrites (in the patches folder) and handles generic tests
 
 ### Added
+-   Examples for `environment.yml` files to create a working dbt environment.
 -   The `generate_docs_from_macrodoc.py` script now allows extra characters
     around the jinja in/out snippets to allow visual dividiers (see `period_shift_is_consistent.sql` for an example)
 -   generic_test: `period_shift_is_consistent`
