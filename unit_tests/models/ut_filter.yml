@@ -1,0 +1,22 @@
+unit_tests:
+  - name: ut_filter
+    model: ut_filter
+    given:
+      - input: ref('_dummy_source')
+        rows: [] # defined in sql
+    expect:
+      rows:
+        # no filter
+        - {id: 1 }
+        - {id: 2 }
+        - {id: 3 }
+        # integers
+        - {id: 1 }
+        - {id: 2 }
+        # strings
+        - {id: 2 }
+        - {id: 3 }
+        # combined
+        - {id: 2 }
+        # no match -> no row
+

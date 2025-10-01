@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-14 15:08:07
-@Last Modified: 2025-08-14 15:10:39
+@Last Modified: 2025-09-11 12:13:07
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -38,8 +38,4 @@ endmacrodocs #}
 
 {%- macro sqlserver__is_int(text) %}
     case when isnumeric({{ text }}) = 1 and charindex('.', {{ text }}) = 0 then 1 else 0 end
-{%- endmacro %}
-
-{%- macro oracle__is_int(text) %}
-    validate_conversion({{ text }} as integer)
 {%- endmacro %}

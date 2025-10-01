@@ -132,6 +132,75 @@ Dbt also offers functions: `cast` and `safe_cast` (returns null on error)
 {{ dbt.cast("'2016-03-09'", api.Column.translate_type("date")) }}
 ```
 
+#### AI generated notes on string types
+
+Also note, maybe we want to use nvarchar instead of varchar for mssql?
+[see here, but also note that varchars now potentially do unicode](https://stackoverflow.com/questions/144283/what-is-the-difference-between-varchar-and-nvarchar)
+
+- **MSSQL uniquely supports `VARCHAR(MAX)`** for very large strings.[^1_2]
+- **Postgres and DuckDB use `TEXT`/`VARCHAR` (no length)** as the unlimited string column, and do not support `VARCHAR(MAX)`.[^1_3][^1_10]
+- **Oracle enforces shorter max lengths for `VARCHAR2(n)`**, requiring `CLOB` for truly large text strings.
+
+All systems accept `VARCHAR(n)` syntax where `n` is the integer max length, but only MSSQL supports the `MAX` keyword directly for strings.
+
+##### MSSQL
+
+- Uses `VARCHAR(n)` for variable-length strings up to 8000 bytes, and `VARCHAR(MAX)` for strings up to 2 GB.
+- `VARCHAR(MAX)` is unique to MSSQL, allowing very large string storage.
+- `VARCHAR(n)` columns can be used as index keys, but `VARCHAR(MAX)` columns cannot.[^1_2]
+
+
+##### PostgreSQL
+
+- Supports `VARCHAR(n)` (variable-length string with a length limit), `CHAR(n)` (fixed-length), and `TEXT` (unlimited length).[^1_1][^1_3][^1_4][^1_5]
+- **Does not support** `VARCHAR(MAX)`; instead, `TEXT` or `VARCHAR` without a length specifier gives unlimited length (up to ~1 GB).[^1_3][^1_4]
+- `VARCHAR(n)` enforces a length limit, raising errors upon overflow.
+
+
+##### DuckDB
+
+- DuckDB's SQL dialect closely follows PostgreSQL conventions.[^1_10]
+- Supports `VARCHAR(n)`, `CHAR(n)`, and `VARCHAR` (unlimited length).
+- **Does not support** `VARCHAR(MAX)` syntax. Use `VARCHAR` or `TEXT` for unlimited length, similar to PostgreSQL.
+
+
+##### Oracle
+
+- Supports `VARCHAR2(n)` for variable-length strings up to 4000 bytes.
+- There's no `VARCHAR(MAX)`; for very large text, Oracle uses `CLOB` instead.
+- `VARCHAR2(n)` requires specifying the max allowed length.
+
+
+##### Comparison Table
+
+| Backend | VARCHAR(n) | VARCHAR(MAX) | Unlimited Length | Key Notes |
+| :-- | :-- | :-- | :-- | :-- |
+| MSSQL | Yes | Yes (up to 2GB)[^1_2] | No | `VARCHAR(MAX)` is MSSQL-specific |
+| PostgreSQL | Yes | No | Yes (`TEXT` or `VARCHAR`)[^1_3][^1_4] | No performance difference; up to 1GB |
+| DuckDB | Yes | No | Yes[^1_10] | Follows Postgres; no `VARCHAR(MAX)` |
+| Oracle | Yes (`VARCHAR2`) | No | No (`CLOB` instead) | Max 4000 bytes; use `CLOB` for bigger |
+
+
+[^1_1]: https://dataedo.com/kb/query/postgresql/find-all-string-columns
+
+[^1_2]: https://www.red-gate.com/simple-talk/databases/sql-server/learn/when-use-char-varchar-varcharmax/
+
+[^1_3]: https://neon.com/postgresql/postgresql-tutorial/postgresql-char-varchar-text
+
+[^1_4]: https://www.dbvis.com/thetable/postgres-text-vs-varchar-comparing-string-data-types/
+
+[^1_5]: https://www.tigerdata.com/learn/what-characters-are-allowed-in-postgresql-strings
+
+[^1_6]: https://www.sprinkledata.com/blogs/postgresql-text-vs-varchar-choosing-the-right-data-type-for-your-database
+
+[^1_7]: https://www.postgresql.org/docs/current/datatype-character.html
+
+[^1_8]: https://stackoverflow.com/questions/4848964/difference-between-text-and-varchar-character-varying
+
+[^1_9]: https://stackoverflow.com/questions/19942824/how-to-concatenate-columns-in-a-postgres-select
+
+[^1_10]: https://duckdb.org/docs/stable/sql/dialect/postgresql_compatibility.html
+
 
 ### Jinja
 
