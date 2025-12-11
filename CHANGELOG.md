@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   macros: `year` and `month` to extract as integer from a date
 -   macros: `dbt__generate_schema_name` and `dbt__generate_alias_name` for our default renames (during materialization). Dont need to be called by the user, dbt should do this automatically. Might have to check the [dispatch search order](https://docs.getdbt.com/reference/dbt-jinja-functions/dispatch#overriding-global-macros).
 
+### Dependencies
+
+- Updated dbt utils from `1.3.0` to `1.3.3`
+
 ## [0.2.1] - 2025-08-12
 
 ### Fixed
