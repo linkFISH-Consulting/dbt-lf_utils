@@ -1,5 +1,4 @@
 {% docs macros__substring %}
-
 Extract characters from a string by position.
 
 # Arguments
@@ -28,6 +27,5 @@ select
 
 # Notes
 - Also consider using `dbt.split_part`
-
 
 {% enddocs %}

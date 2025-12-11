@@ -1,10 +1,13 @@
-# this file is auto-generated. last updated: 2025-08-13 17:35:26
+# this file is auto-generated. last updated: 2025-08-14 16:54:01
 
 version: 2
 
 macros:
   - name: left
     description: '{{ doc("macros__left") }}'
+
+  - name: create_nonclustered_index
+    description: '{{ doc("macros__create_nonclustered_index") }}'
 
   - name: date_from_parts
     description: '{{ doc("macros__date_from_parts") }}'
@@ -15,11 +18,17 @@ macros:
   - name: right
     description: '{{ doc("macros__right") }}'
 
+  - name: is_int
+    description: '{{ doc("macros__is_int") }}'
+
   - name: month
     description: '{{ doc("macros__month") }}'
 
   - name: is_numeric
     description: '{{ doc("macros__is_numeric") }}'
+
+  - name: lpad
+    description: '{{ doc("macros__lpad") }}'
 
   - name: date_strftime
     description: '{{ doc("macros__date_strftime") }}'
@@ -35,4 +44,13 @@ macros:
 
   - name: date_to_string
     description: '{{ doc("macros__date_to_string") }}'
+
+  - name: generate_schema_name
+    description: '{{ doc("macros_patches__generate_schema_name") }}'
+
+  - name: generate_alias_name
+    description: '{{ doc("macros_patches__generate_alias_name") }}'
+
+  - name: test_period_shift_is_consistent
+    description: '{{ doc("macros_generic_tests__test_period_shift_is_consistent") }}'
 

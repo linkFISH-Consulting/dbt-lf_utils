@@ -1,5 +1,4 @@
 {% docs macros__year %}
-
 Extract the year as an integer from a date or timestamp column.
 
 # Arguments
@@ -16,6 +15,5 @@ Extract the year as an integer from a date or timestamp column.
 
 # Notes
 - See also `lf_utils.date_strftime` for more flexible date formatting.
-
 
 {% enddocs %}

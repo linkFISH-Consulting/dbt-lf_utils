@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-13 16:08:21
-@Last Modified: 2025-08-14 10:17:06
+@Last Modified: 2025-08-14 11:01:13
 ------------------------------------------------------------------------------ #}
 
 {# TODO: add Tests. PS 2025-08-14: no clue how to do this,
@@ -28,7 +28,12 @@ Create a nonclustered index.
 - [SO on non-clustered includes](https://stackoverflow.com/questions/1307990/why-use-the-include-clause-when-creating-an-index)
 
 endmacrodocs #}
-    {{ return(adapter.dispatch("create_nonclustered_index", "lf_utils")(columns, includes)) }}
+{% macro create_nonclustered_index(columns, includes = []) %}
+    {{
+        return(
+            adapter.dispatch("create_nonclustered_index", "lf_utils")(columns, includes)
+        )
+    }}
 {% endmacro %}
 
 {%- macro postgres__create_nonclustered_index(columns, includes) %}
@@ -45,10 +50,11 @@ endmacrodocs #}
 {%- endmacro %}
 
 {%- macro duckdb__create_nonclustered_index(columns, includes) %}
+    {# DuckDB seems mostly fine without indices! #}
     {# DuckDB create index syntax (no include clause support) #}
-    create index
+    {# create index
         {{ this.table }}__index_on_{{ columns | join("_") }}
-    on {{ this }} ({{ columns | join(", ") }})
+    on {{ this }} ({{ columns | join(", ") }}) #}
 {%- endmacro %}
 
 {%- macro sqlserver__create_nonclustered_index(columns, includes) %}
