@@ -72,15 +72,40 @@ jobs:
           git tag "$TAG_NAME"
           git push origin "$TAG_NAME"
 
-          # Create release with changelog
-          if [ -f changelog.txt ]; then
-            gh release create "$TAG_NAME" \
-              --title "Release $TAG_NAME" \
-              --notes-file changelog.txt
+          # Extract current version notes from CHANGELOG.md
+          if [ -f CHANGELOG.md ]; then
+            # Find the section for the current version
+            # This regex looks for the version header and captures until next version header
+            CURRENT_NOTES=$(awk -v version="$VERSION" '
+              BEGIN { in_section=0; found=0 }
+              /^## \[/ {
+                if (in_section) exit
+                if ($0 ~ "\\[" version "\\]") {
+                  in_section=1
+                  found=1
+                  next
+                }
+              }
+              in_section { print }
+            ' CHANGELOG.md)
+
+            if [ -n "$CURRENT_NOTES" ]; then
+              # Create a temporary file with the extracted notes
+              echo "$CURRENT_NOTES" > /tmp/release_notes.md
+              gh release create "$TAG_NAME" \
+                --title "Release $TAG_NAME" \
+                --notes-file /tmp/release_notes.md
+            else
+              # Fallback to generated notes if section not found
+              gh release create "$TAG_NAME" \
+                --title "Release $TAG_NAME" \
+                --generate-notes
+            fi
           else
+            # No CHANGELOG.md found, use generated notes
             gh release create "$TAG_NAME" \
               --title "Release $TAG_NAME" \
-              --notes "Release $TAG_NAME"
+              --generate-notes
           fi
 
       - name: Output result
