@@ -1,0 +1,21 @@
+unit_tests:
+  - name: ut_datetime_from_parts
+    model: ut_datetime_from_parts
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {year_col: 2021, month_col: 3, day_col: 15, hour_col: 16, minute_col: 4, second_col: 0}
+    expect:
+      rows:
+        # Test with column inputs
+        - {output: "2021-03-15 16:04:00"}
+        # Test with direct integer inputs
+        - {output: "2023-12-25 16:04:00"}
+        # Test with mixed inputs
+        - {output: "2021-06-15 16:04:00"}
+        # Test leap year
+        - {output: "2024-02-29 16:04:00"}
+        # Test last day of year
+        - {output: "2023-12-31 16:04:00"}
+        # Test default values of time
+        - {output: "2023-12-31 00:00:00"}

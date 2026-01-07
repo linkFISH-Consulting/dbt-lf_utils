@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.3] - Upcoming
 
+### Added
+- macro: `datetime_from_parts`. Like `date_from_parts` but returns a timestamp, and optionally takes hour, minute and second arguments. (defaults are 0)
+
+### Developer Notes
+- Added Github Action for Changelog reminder
+- Reworked Auto-Release Action to read this changelog.
+
 ## [0.2.2] - 2025-12-11
 
 ### Fixed
