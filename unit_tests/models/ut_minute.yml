@@ -1,0 +1,14 @@
+unit_tests:
+  - name: ut_minute
+    model: ut_minute
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 02:03:04"}
+    expect:
+      rows:
+        # value checks
+        - {output: 0, test_id: 1}
+        - {output: 3, test_id: 2}
+        # is integer test
+        - {output: 1, test_id: 3}

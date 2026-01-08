@@ -57,6 +57,13 @@ We had a loose collection for macros, this is a list of where they ended up ...
 Dbt offers a lot of cross-database macros, we should try to use them, and extend them in the toolbox if they dont work for our needed adapters. [See here](https://docs.getdbt.com/reference/dbt-jinja-functions/cross-database-macros)
 
 
+### Migration Steps
+
+- 0. Install by adding to packages.yml
+    - Remove dbt utils, we ship it with a pinned version
+- 1. Replace existing custom macros with `lf_utils` ones. In particular, remove overrides of dbt_utils macros.
+    - Note that, due to the dispatch order, until all old macros are removed, it may happen that you get compile errors inside lf_utils. This is because lf_utils builds on dbt_utils, and thereby your project-level code might override functionality inside lf_utils.
+
 ### Date functions
 
 - `datefromparts` -> use `lf_utils.date_from_parts`
@@ -338,7 +345,10 @@ TODO @PS: should add a note that we override dbts schema and alias naming macros
 - The main use case is to make functions from dbt utils work on mssql.
 - These dispatch functions live under `macros/patches` with tests in `unit_tests/models/patches`.
 
-### Guidelines:
+### Add Macros:
 - Let's not add default adapters. This helps catching errors early, already when developing, and not only running the model and finding broken data.
 
-
+### Testing new Macros:
+- Note that dbts test via yaml do not check row order, only for existence.
+  To also check that the row order is correct, you need to manually add a column and check it.
+  See `ut_year.sql` for an example.

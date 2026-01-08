@@ -7,8 +7,8 @@ unit_tests:
           - {date_col: "2021-01-01", datetime_col: "2021-01-01 01:01:01"}
     expect:
       rows:
-        # is integer test
-        - {output: 1}
         # value checks
-        - {output: 2021}
-        - {output: 2021}
+        - {output: 2021, test_id: 1}
+        - {output: 2021, test_id: 2}
+        # is integer test
+        - {output: 1, test_id: 3}

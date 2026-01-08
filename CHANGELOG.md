@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - macro: `datetime_from_parts`. Like `date_from_parts` but returns a timestamp, and optionally takes hour, minute and second arguments. (defaults are 0)
+- macros: `day`, `hour`, `minute`, `second`. Making the set complete with `year` and `monnth`. All work on dates and timestamps, and return integers. `hour`, `minute` and `second` return 0 when applied on date (non-timestamp) objects.
 
 ### Developer Notes
 - Added Github Action for Changelog reminder

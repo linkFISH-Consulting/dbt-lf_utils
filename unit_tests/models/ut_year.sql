@@ -1,11 +1,11 @@
 -- Test extracting year from date_col
-select {{ lf_utils.year("date_col") }} as output
+select {{ lf_utils.year("date_col") }} as output, 1 as test_id
 from {{ ref("_dummy_source") }}
 
 union all
 
 -- Test extracting year from datetime_col
-select {{ lf_utils.year("datetime_col") }} as output
+select {{ lf_utils.year("datetime_col") }} as output, 2 as test_id
 from {{ ref("_dummy_source") }}
 
 union all
@@ -18,7 +18,8 @@ union all
         -- duckdb returns 'INTEGER' or BIGINT
         case
             when typeof({{ lf_utils.year("date_col") }}) in ('INTEGER', 'BIGINT') then 1
-        end as output
+        end as output,
+        3 as test_id
     from {{ ref("_dummy_source") }}
 {% elif target.type == "postgres" %}
     select
@@ -28,7 +29,8 @@ union all
                 pg_typeof({{ lf_utils.year("date_col") }})::text
                 in ('integer', 'smallint', 'bigint')
             then 1
-        end as output
+        end as output,
+        3 as test_id
     from {{ ref("_dummy_source") }}
 {% elif target.type == "sqlserver" %}
     select
@@ -37,9 +39,11 @@ union all
                 sql_variant_property({{ lf_utils.year("date_col") }}, 'BaseType')
                 = 'int'
             then 1
-        end as output
+        end as output,
+        3 as test_id
     from {{ ref("_dummy_source") }}
 {% else %}
     -- unknown backend, but we need to close union all
     select 0 as output
+    3 as test_id,
 {% endif %}
