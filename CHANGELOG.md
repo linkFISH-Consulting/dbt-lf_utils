@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - macros: `day`, `hour`, `minute`, `second`. Making the set complete with `year` and `monnth`. All work on dates and timestamps, and return integers. `hour`, `minute` and `second` return 0 when applied on date (non-timestamp) objects.
 - `filter` macro now supports a `not_in_values` argument. Only one of `in_values` or `not_in_values` can be supplied. To combine them, call the macro twice (this leaves the choice to the user: how to combine, via `and` or `or`).
 
+### Fixed
+- Added casting in `is_numeric` macro to avoid runtime error in duckdb, if the source column is not of a text type.
+
 ### Developer Notes
 - Added Github Action for Changelog reminder
 - Reworked Auto-Release Action to read this changelog.

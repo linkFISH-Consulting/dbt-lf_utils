@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-18 13:46:56
-@Last Modified: 2025-08-11 13:34:35
+@Last Modified: 2026-01-20 14:21:30
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -29,7 +29,7 @@ endmacrodocs #}
 {%- macro duckdb__is_numeric(text) %}
     {# Not sure about exponential notation, but this is what the regex would be#}
     {# case when {{ text }} ~ '^[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$' then 1 else 0 end #}
-    case when {{ text }} ~ '^[-+]?(\d+(\.\d*)?|\.\d+)$' then 1 else 0 end
+    case when cast({{ text }} as varchar) ~ '^[-+]?(\d+(\.\d*)?|\.\d+)$' then 1 else 0 end
 {%- endmacro %}
 
 {%- macro postgres__is_numeric(text) %}
@@ -39,7 +39,7 @@ endmacrodocs #}
     and also dbt.safe_cast is affected by this!
     thus, use regexp :/
     #}
-    case when {{ text }} ~ '^[-+]?(\d+(\.\d*)?|\.\d+)$' then 1 else 0 end
+    case when cast({{ text }} as varchar) ~ '^[-+]?(\d+(\.\d*)?|\.\d+)$' then 1 else 0 end
 {%- endmacro %}
 
 {%- macro sqlserver__is_numeric(text) %}
