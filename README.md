@@ -64,6 +64,16 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
 - 1. Replace existing custom macros with `lf_utils` ones. In particular, remove overrides of dbt_utils macros.
     - Note that, due to the dispatch order, until all old macros are removed, it may happen that you get compile errors inside lf_utils. This is because lf_utils builds on dbt_utils, and thereby your project-level code might override functionality inside lf_utils.
 
+### Mass Replace
+
+- In vscode, it is easy to find and replace occurrences of existing macros that have been ported, such as, for instance, I replaced `lpad` in `lka_lissa`.
+- A good way to do this is to use regex:
+    - enable regexp search (the `.*` button) on the right of the search term
+    - Search for: `(?<!lf_utils\.)(lpad\())` (searches all occurences of `lpad(` without `lf_utils.` in front of it)
+    - Replace with `lf_utils.lpad(`
+    - Files to inlcude: `dbt_lka_lissa/macros, dbt_lka_lissa/models`
+
+
 ### Date functions
 
 - `datefromparts` -> use `lf_utils.date_from_parts`
