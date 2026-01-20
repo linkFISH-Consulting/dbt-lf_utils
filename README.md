@@ -99,6 +99,7 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
     IMHO only in mart layers we want to have columns that hold 99.9% integers as strings,
     with only a few replacement chars to give board its workaround
     for displaying `null` values.
+- `isnumeric` We have ported this to `lf_utils.is_numeric()` and `lf_utils.is_int()` but you should avoid using them. For Postgres and duckdb, they rely on regex, as there is no try_cast and therefore no reliable way to do this. There should always be a way to be deterministic about your datatypes - we want to cast during staging!
 
 ## Learnings
 

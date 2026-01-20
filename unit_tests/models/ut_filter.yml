@@ -7,16 +7,18 @@ unit_tests:
     expect:
       rows:
         # no filter
-        - {id: 1 }
-        - {id: 2 }
-        - {id: 3 }
+        - {id: 1, test_id: 1 }
+        - {id: 2, test_id: 1 }
+        - {id: 3, test_id: 1 }
         # integers
-        - {id: 1 }
-        - {id: 2 }
+        - {id: 1, test_id: 2 }
+        - {id: 2, test_id: 2 }
         # strings
-        - {id: 2 }
-        - {id: 3 }
+        - {id: 2, test_id: 3 }
+        - {id: 3, test_id: 3 }
         # combined
-        - {id: 2 }
-        # no match -> no row
+        - {id: 2, test_id: 4 }
+        # not in
+        - {id: 1, test_id: 5 }
+        # no match -> no row (test_id 6)
 
