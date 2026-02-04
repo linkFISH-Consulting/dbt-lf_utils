@@ -1,11 +1,11 @@
--- Test extracting month from date_col
-select {{ lf_utils.month("date_col") }} as output, 1 as test_id
+-- Test extracting second from date_col
+select {{ lf_utils.second("date_col") }} as output, 1 as test_id
 from {{ ref("_dummy_source") }}
 
 union all
 
--- Test extracting month from datetime_col
-select {{ lf_utils.month("datetime_col") }} as output, 2 as test_id
+-- Test extracting second from datetime_col
+select {{ lf_utils.second("datetime_col") }} as output, 2 as test_id
 from {{ ref("_dummy_source") }}
 
 union all
@@ -14,7 +14,7 @@ union all
 {% if target.type == "duckdb" %}
     select
         case
-            when typeof({{ lf_utils.month("date_col") }}) in ('INTEGER', 'BIGINT') then 1
+            when typeof({{ lf_utils.second("date_col") }}) in ('INTEGER', 'BIGINT') then 1
         end as output,
         3 as test_id
     from {{ ref("_dummy_source") }}
@@ -22,7 +22,7 @@ union all
     select
         case
             when
-                pg_typeof({{ lf_utils.month("date_col") }})::text
+                pg_typeof({{ lf_utils.second("date_col") }})::text
                 in ('integer', 'smallint', 'bigint')
             then 1
         end as output,
@@ -32,7 +32,7 @@ union all
     select
         case
             when
-                sql_variant_property({{ lf_utils.month("date_col") }}, 'BaseType')
+                sql_variant_property({{ lf_utils.second("date_col") }}, 'BaseType')
                 = 'int'
             then 1
         end as output,

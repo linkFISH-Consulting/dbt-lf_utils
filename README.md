@@ -57,6 +57,23 @@ We had a loose collection for macros, this is a list of where they ended up ...
 Dbt offers a lot of cross-database macros, we should try to use them, and extend them in the toolbox if they dont work for our needed adapters. [See here](https://docs.getdbt.com/reference/dbt-jinja-functions/cross-database-macros)
 
 
+### Migration Steps
+
+- 0. Install by adding to packages.yml
+    - Remove dbt utils, we ship it with a pinned version
+- 1. Replace existing custom macros with `lf_utils` ones. In particular, remove overrides of dbt_utils macros.
+    - Note that, due to the dispatch order, until all old macros are removed, it may happen that you get compile errors inside lf_utils. This is because lf_utils builds on dbt_utils, and thereby your project-level code might override functionality inside lf_utils.
+
+### Mass Replace
+
+- In vscode, it is easy to find and replace occurrences of existing macros that have been ported, such as, for instance, I replaced `lpad` in `lka_lissa`.
+- A good way to do this is to use regex:
+    - enable regexp search (the `.*` button) on the right of the search term
+    - Search for: `(?<!lf_utils\.)(lpad\())` (searches all occurences of `lpad(` without `lf_utils.` in front of it)
+    - Replace with `lf_utils.lpad(`
+    - Files to inlcude: `dbt_lka_lissa/macros, dbt_lka_lissa/models`
+
+
 ### Date functions
 
 - `datefromparts` -> use `lf_utils.date_from_parts`
@@ -92,6 +109,7 @@ Dbt offers a lot of cross-database macros, we should try to use them, and extend
     IMHO only in mart layers we want to have columns that hold 99.9% integers as strings,
     with only a few replacement chars to give board its workaround
     for displaying `null` values.
+- `isnumeric` We have ported this to `lf_utils.is_numeric()` and `lf_utils.is_int()` but you should avoid using them. For Postgres and duckdb, they rely on regex, as there is no try_cast and therefore no reliable way to do this. There should always be a way to be deterministic about your datatypes - we want to cast during staging!
 
 ## Learnings
 
@@ -338,7 +356,10 @@ TODO @PS: should add a note that we override dbts schema and alias naming macros
 - The main use case is to make functions from dbt utils work on mssql.
 - These dispatch functions live under `macros/patches` with tests in `unit_tests/models/patches`.
 
-### Guidelines:
+### Add Macros:
 - Let's not add default adapters. This helps catching errors early, already when developing, and not only running the model and finding broken data.
 
-
+### Testing new Macros:
+- Note that dbts test via yaml do not check row order, only for existence.
+  To also check that the row order is correct, you need to manually add a column and check it.
+  See `ut_year.sql` for an example.

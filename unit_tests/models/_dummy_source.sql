@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-14 11:22:02
-@Last Modified: 2025-08-14 14:05:54
+@Last Modified: 2026-01-07 20:58:17
 
 This is a dummy source, which has to be build before running any tests.
 dbt build --select _dummy_source
@@ -32,4 +32,7 @@ select
   cast(1 as {{ dbt.type_int() }}) as start_col,
   cast(2021 as {{ dbt.type_int() }}) as year_col,
   cast(1 as {{ dbt.type_int() }}) as month_col,
-  cast(1 as {{ dbt.type_int() }}) as day_col
+  cast(1 as {{ dbt.type_int() }}) as day_col,
+  cast(1 as {{ dbt.type_int() }}) as hour_col,
+  cast(1 as {{ dbt.type_int() }}) as minute_col,
+  cast(1 as {{ dbt.type_int() }}) as second_col

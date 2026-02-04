@@ -1,10 +1,10 @@
 unit_tests:
-  - name: ut_month
-    model: ut_month
+  - name: ut_day
+    model: ut_day
     given:
       - input: ref('_dummy_source')
         rows:
-          - {date_col: "2021-02-01", datetime_col: "2021-02-01 01:01:01"}
+          - {date_col: "2021-01-02", datetime_col: "2021-01-02 01:01:01"}
     expect:
       rows:
         # value checks

@@ -1,14 +1,14 @@
 unit_tests:
-  - name: ut_month
-    model: ut_month
+  - name: ut_hour
+    model: ut_hour
     given:
       - input: ref('_dummy_source')
         rows:
-          - {date_col: "2021-02-01", datetime_col: "2021-02-01 01:01:01"}
+          - {date_col: "2021-01-01", datetime_col: "2021-01-01 02:03:04"}
     expect:
       rows:
         # value checks
-        - {output: 2, test_id: 1}
+        - {output: 0, test_id: 1}
         - {output: 2, test_id: 2}
         # is integer test
         - {output: 1, test_id: 3}
