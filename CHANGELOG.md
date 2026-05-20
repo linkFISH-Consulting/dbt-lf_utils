@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - macro argumnet: `date_from_parts` and `datetime_from_parts` now accept static `'last'` as argument for `day`, to get the last day of the month.
 
+### Fixed
+
+- we should no longer get warnings for overriding the `generate_alias_name` and `generate_schema_name` builtin macros
+
 ## [0.3.0] - 2026-02-04
 
 ### Added

@@ -6,6 +6,7 @@ Pad a string-column on the left with a specified character to a given length.
     The column holding the text to be padded
 - len : integer or integer column
     The target length of the padded string. Cannot be negative.
+    If length is smaller than text, we truncate! See example.
 - padding : string
     The character to pad with.
 

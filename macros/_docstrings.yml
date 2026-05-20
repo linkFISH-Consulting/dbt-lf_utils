@@ -1,4 +1,4 @@
-# this file is auto-generated. last updated: 2025-08-14 16:54:01
+# this file is auto-generated. last updated: 2026-05-20 14:18:41
 
 version: 2
 
@@ -15,6 +15,12 @@ macros:
   - name: get_months
     description: '{{ doc("macros__get_months") }}'
 
+  - name: filter
+    description: '{{ doc("macros__filter") }}'
+
+  - name: second
+    description: '{{ doc("macros__second") }}'
+
   - name: right
     description: '{{ doc("macros__right") }}'
 
@@ -23,6 +29,9 @@ macros:
 
   - name: month
     description: '{{ doc("macros__month") }}'
+
+  - name: day
+    description: '{{ doc("macros__day") }}'
 
   - name: is_numeric
     description: '{{ doc("macros__is_numeric") }}'
@@ -36,6 +45,15 @@ macros:
   - name: camel_to_snake
     description: '{{ doc("macros__camel_to_snake") }}'
 
+  - name: hour
+    description: '{{ doc("macros__hour") }}'
+
+  - name: minute
+    description: '{{ doc("macros__minute") }}'
+
+  - name: datetime_from_parts
+    description: '{{ doc("macros__datetime_from_parts") }}'
+
   - name: year
     description: '{{ doc("macros__year") }}'
 
@@ -45,11 +63,11 @@ macros:
   - name: date_to_string
     description: '{{ doc("macros__date_to_string") }}'
 
-  - name: generate_schema_name
-    description: '{{ doc("macros_patches__generate_schema_name") }}'
+  - name: default__generate_schema_name
+    description: '{{ doc("macros_patches__default__generate_schema_name") }}'
 
-  - name: generate_alias_name
-    description: '{{ doc("macros_patches__generate_alias_name") }}'
+  - name: default__generate_alias_name
+    description: '{{ doc("macros_patches__default__generate_alias_name") }}'
 
   - name: test_period_shift_is_consistent
     description: '{{ doc("macros_generic_tests__test_period_shift_is_consistent") }}'
