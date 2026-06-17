@@ -25,3 +25,9 @@ union all
 -- Test edge case: last day of year
 select {{ lf_utils.date_from_parts(2023, 12, 31) }} as output
 from {{ ref("_dummy_source") }}
+
+union all
+
+-- Test "last" day argument
+select {{ lf_utils.date_from_parts(2023, 2, "last") }} as output
+from {{ ref("_dummy_source") }}

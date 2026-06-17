@@ -1,7 +1,7 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-08-14 13:51:11
-@Last Modified: 2025-08-14 14:54:06
+@Last Modified: 2026-03-18 17:17:51
 ------------------------------------------------------------------------------ #}
 
 {# macrodocs
@@ -12,6 +12,7 @@ Pad a string-column on the left with a specified character to a given length.
     The column holding the text to be padded
 - len : integer or integer column
     The target length of the padded string. Cannot be negative.
+    If length is smaller than text, we truncate! See example.
 - padding : string
     The character to pad with.
 

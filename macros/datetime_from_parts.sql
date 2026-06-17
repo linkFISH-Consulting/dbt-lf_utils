@@ -13,8 +13,8 @@ This can take integers, but also columns as input.
     The year to use, e.g. 2023
 - month : integer or column
     The month to use, e.g. 10 for October
-- day : integer or column
-    The day to use, e.g. 4 for the 4th of the month
+- day : integer, column, or the string "last"
+    The day to use, e.g. 4 for the 4th of the month, or "last" for the last day of the month
 - hour: integer or column
     Hour, default 0
 - minute: integer or column
@@ -48,48 +48,121 @@ endmacrodocs #}
 {%- endmacro %}
 
 {%- macro duckdb__datetime_from_parts(year, month, day, hour, minute, second) %}
-    make_timestamp(
-        cast({{ year }} as int),
-        cast({{ month }} as int),
-        cast({{ day }} as int),
-        cast({{ hour }} as int),
-        cast({{ minute }} as int),
-        cast({{ second }} as numeric)
-    )
+    {%- if day == 'last' %}
+        make_timestamp(
+            cast({{ year }} as int),
+            cast({{ month }} as int),
+            cast(
+                extract(
+                    day from cast(
+                        date_trunc(
+                            'month', make_date(
+                                cast({{ year }} as int), cast({{ month }} as int), 1
+                            )
+                        )
+                        + interval '1 month'
+                        - interval '1 day' as date
+                    )
+                ) as int
+            ),
+            cast({{ hour }} as int),
+            cast({{ minute }} as int),
+            cast({{ second }} as numeric)
+        )
+    {%- else %}
+        make_timestamp(
+            cast({{ year }} as int),
+            cast({{ month }} as int),
+            cast({{ day }} as int),
+            cast({{ hour }} as int),
+            cast({{ minute }} as int),
+            cast({{ second }} as numeric)
+        )
+    {%- endif %}
 {%- endmacro %}
 
 {%- macro sqlserver__datetime_from_parts(year, month, day, hour, minute, second) %}
-    datetimefromparts(
-        cast({{ year }} as int),
-        cast({{ month }} as int),
-        cast({{ day }} as int),
-        cast({{ hour }} as int),
-        cast({{ minute }} as int),
-        cast({{ second }} as int),
-        0  -- millisecond
-    )
+    {%- if day == 'last' %}
+        datetimefromparts(
+            cast({{ year }} as int),
+            cast({{ month }} as int),
+            day(eomonth(datefromparts(cast({{ year }} as int), cast({{ month }} as int), 1))),
+            cast({{ hour }} as int),
+            cast({{ minute }} as int),
+            cast({{ second }} as int),
+            0  -- millisecond
+        )
+    {%- else %}
+        datetimefromparts(
+            cast({{ year }} as int),
+            cast({{ month }} as int),
+            cast({{ day }} as int),
+            cast({{ hour }} as int),
+            cast({{ minute }} as int),
+            cast({{ second }} as int),
+            0  -- millisecond
+        )
+    {%- endif %}
 {%- endmacro %}
 
 {%- macro postgres__datetime_from_parts(year, month, day, hour, minute, second) %}
-    to_timestamp(
-        cast({{ year }} as int)::text || '-' ||
-        cast({{ month }} as int)::text || '-' ||
-        cast({{ day }} as int)::text || ' ' ||
-        lpad(cast({{ hour }} as int)::text, 2, '0') || ':' ||
-        lpad(cast({{ minute }} as int)::text, 2, '0') || ':' ||
-        lpad(cast({{ second }} as numeric)::text, 2, '0'),
-        'YYYY-MM-DD HH24:MI:SS'
-    )
+    {%- if day == 'last' %}
+        to_timestamp(
+            cast({{ year }} as int)::text || '-' ||
+            cast({{ month }} as int)::text || '-' ||
+            extract(
+                day from (
+                    date_trunc('month', make_date(cast({{ year }} as int), cast({{ month }} as int), 1))
+                    + interval '1 month - 1 day'
+                )
+            )::int::text || ' ' ||
+            lpad(cast({{ hour }} as int)::text, 2, '0') || ':' ||
+            lpad(cast({{ minute }} as int)::text, 2, '0') || ':' ||
+            lpad(cast({{ second }} as numeric)::text, 2, '0'),
+            'YYYY-MM-DD HH24:MI:SS'
+        )
+    {%- else %}
+        to_timestamp(
+            cast({{ year }} as int)::text || '-' ||
+            cast({{ month }} as int)::text || '-' ||
+            cast({{ day }} as int)::text || ' ' ||
+            lpad(cast({{ hour }} as int)::text, 2, '0') || ':' ||
+            lpad(cast({{ minute }} as int)::text, 2, '0') || ':' ||
+            lpad(cast({{ second }} as numeric)::text, 2, '0'),
+            'YYYY-MM-DD HH24:MI:SS'
+        )
+    {%- endif %}
 {%- endmacro %}
 
 {%- macro oracle__datetime_from_parts(year, month, day, hour, minute, second) %}
-    to_date(
-        cast({{ year }} as int) || '-' ||
-        cast({{ month }} as int) || '-' ||
-        cast({{ day }} as int) || ' ' ||
-        lpad(cast({{ hour }} as int), 2, '0') || ':' ||
-        lpad(cast({{ minute }} as int), 2, '0') || ':' ||
-        lpad(cast({{ second }} as int), 2, '0'),
-        'YYYY-MM-DD HH24:MI:SS'
-    )
+    {%- if day == 'last' %}
+        to_date(
+            cast({{ year }} as int) || '-' ||
+            cast({{ month }} as int) || '-' ||
+            to_char(
+                last_day(
+                    to_date(
+                        cast({{ year }} as int) || '-' ||
+                        cast({{ month }} as int) || '-1',
+                        'YYYY-MM-DD'
+                    )
+                ),
+                'DD'
+            ) || ' ' ||
+            lpad(cast({{ hour }} as int), 2, '0') || ':' ||
+            lpad(cast({{ minute }} as int), 2, '0') || ':' ||
+            lpad(cast({{ second }} as int), 2, '0'),
+            'YYYY-MM-DD HH24:MI:SS'
+        )
+    {%- else %}
+        to_date(
+            cast({{ year }} as int) || '-' ||
+            cast({{ month }} as int) || '-' ||
+            cast({{ day }} as int) || ' ' ||
+            lpad(cast({{ hour }} as int), 2, '0') || ':' ||
+            lpad(cast({{ minute }} as int), 2, '0') || ':' ||
+            lpad(cast({{ second }} as int), 2, '0'),
+            'YYYY-MM-DD HH24:MI:SS'
+        )
+    {%- endif %}
 {%- endmacro %}

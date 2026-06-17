@@ -8,8 +8,8 @@ this can take integers, but also columns as input.
     The year to use, e.g. 2023
 - month : integer or column
     The month to use, e.g. 10 for October
-- day : integer or column
-    The day to use, e.g. 4 for the 4th of the month
+- day : integer, column, or the string "last"
+    The day to use, e.g. 4 for the 4th of the month, or "last" for the last day of the month
 
 # Example
 

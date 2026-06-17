@@ -17,3 +17,5 @@ unit_tests:
         - {output: "2024-02-29"}
         # Test last day of year
         - {output: "2023-12-31"}
+        # Test last day argument
+        - {output: "2023-02-28"}

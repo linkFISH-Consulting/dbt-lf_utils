@@ -12,24 +12,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
 
-      - name: Install dbt dependencies
+      - name: Create python venv with lf_py_stack
         run: |
-          pip install dbt-duckdb
-          export DBT_PROJECT_DIR=./unit_tests
-          dbt deps
+            uv venv --python 3.12
+            source .venv/bin/activate
+            uv pip install git+https://github.com/linkFISH-Consulting/python-dbt-stack
+
+      - name: Dbt deps
+        run: |
+            source .venv/bin/activate
+            export DBT_PROJECT_DIR=./unit_tests
+            dbt deps
 
       - name: Run dbt test
         run: |
-          set -a
-          source config/.env.cicd
-          set +a
+          source .venv/bin/activate
+          set -a; source config/.env.cicd; set +a
           mkdir -p $(dirname $LF_UTILS__DUCKDB_DATAMART_PATH)
           export DBT_PROFILE=lf_utils_duckdb
           export DBT_PROJECT_DIR=./unit_tests
