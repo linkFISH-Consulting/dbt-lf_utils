@@ -23,12 +23,22 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Create python venv with lf_py_stack
+        run: |
+            uv venv --python 3.12
+            source .venv/bin/activate
+            uv pip install git+https://github.com/linkFISH-Consulting/python-dbt-stack
+
+      - name: Dbt deps
+        run: |
+            source .venv/bin/activate
+            export DBT_PROJECT_DIR=./unit_tests
+            dbt deps
 
       - name: Install ODBC Driver
         run: |
@@ -50,17 +60,10 @@ jobs:
           echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
           source ~/.bashrc
 
-      - name: Install dbt dependencies
-        run: |
-          pip install dbt-sqlserver
-          export DBT_PROJECT_DIR=./unit_tests
-          dbt deps
-
       - name: Wait for MSSQL to be ready
         run: |
-          set -a
-          source config/.env.cicd
-          set +a
+          set -a; source config/.env.cicd; set +a
+          export DBT_PROJECT_DIR=./unit_tests
           for i in {1..10}; do
             if /opt/mssql-tools18/bin/sqlcmd -S "$LF_UTILS__MSSQL_HOST" -U "$LF_UTILS__MSSQL_USER" -P "$LF_UTILS__MSSQL_PASSWORD" -Q "SELECT 1" -C; then
               echo "MSSQL is ready!"
@@ -74,9 +77,8 @@ jobs:
 
       - name: Run dbt test
         run: |
-          set -a
-          source config/.env.cicd
-          set +a
+          source .venv/bin/activate
+          set -a; source config/.env.cicd; set +a
           export DBT_PROFILE=lf_utils_mssql
           export DBT_PROJECT_DIR=./unit_tests
           dbt debug
