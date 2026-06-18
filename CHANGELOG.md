@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - macro argumnet: `date_from_parts` and `datetime_from_parts` now accept static `'last'` as argument for `day`, to get the last day of the month.
+- added MIT license
 
 ### Fixed
 
