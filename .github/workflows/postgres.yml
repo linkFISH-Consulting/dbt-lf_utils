@@ -58,12 +58,12 @@ jobs:
         env:
           PGPASSWORD: ${{ env.LF_UTILS__POSTGRES_PASSWORD }}
 
-      - name: Run dbt test
+      - name: Run dbt build
         run: |
           source .venv/bin/activate
           set -a; source config/.env.cicd; set +a
           export DBT_PROFILE=lf_utils_postgres
           export DBT_PROJECT_DIR=./unit_tests
           dbt debug
-          dbt build --select _dummy_source
-          dbt test
+          dbt build
+

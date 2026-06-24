@@ -1,4 +1,4 @@
-# this file is auto-generated. last updated: 2026-05-20 14:18:41
+# this file is auto-generated. last updated: 2026-06-24 15:24:21
 
 version: 2
 
@@ -68,6 +68,9 @@ macros:
 
   - name: default__generate_alias_name
     description: '{{ doc("macros_patches__default__generate_alias_name") }}'
+
+  - name: test_expect_consistent_description_per_code
+    description: '{{ doc("macros_generic_tests__test_expect_consistent_description_per_code") }}'
 
   - name: test_period_shift_is_consistent
     description: '{{ doc("macros_generic_tests__test_period_shift_is_consistent") }}'

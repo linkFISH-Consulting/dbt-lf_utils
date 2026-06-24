@@ -4,7 +4,7 @@ lf_utils_duckdb:
     dev:
       type: duckdb
       schema: dev
-      path: "{{ env_var('LF_UTILS__DUCKDB_DATAMART_PATH') }}"
+      path: "{{ env_var('LF_UTILS__DUCKDB_DATAMART_PATH', ':memory:') }}"
       threads: 4
 
 lf_utils_postgres:

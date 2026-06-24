@@ -1,10 +1,14 @@
 {# ------------------------------------------------------------------------------
 @Author:        F. Paul Spitzner
 @Created:       2025-07-14 11:22:02
-@Last Modified: 2026-01-07 20:58:17
+@Last Modified: 2026-06-24 15:20:31
 
 This is a dummy source, which has to be build before running any tests.
 dbt build --select _dummy_source
+
+Note that tests that use model introspection
+(like dbt_utils.get_filtered_columns_in_relation) may need their test models also
+materialized beforehand.
 
 We override its content in the .yml or specific .sql of each unit test.
 It is not ephemeral, as suggested in

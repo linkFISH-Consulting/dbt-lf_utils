@@ -75,12 +75,12 @@ jobs:
           echo "MSSQL did not become ready in time!" >&2
           exit 1
 
-      - name: Run dbt test
+      - name: Run dbt build
         run: |
           source .venv/bin/activate
           set -a; source config/.env.cicd; set +a
           export DBT_PROFILE=lf_utils_mssql
           export DBT_PROJECT_DIR=./unit_tests
           dbt debug
-          dbt build --select _dummy_source
-          dbt test
+          dbt build
+

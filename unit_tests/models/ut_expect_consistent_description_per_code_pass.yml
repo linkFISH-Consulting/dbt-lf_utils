@@ -1,0 +1,11 @@
+# PASS case: apply the actual generic test to a fixture with consistent data.
+# dbt_utils.get_filtered_columns_in_relation introspects this model's columns at
+# test-compile time, so dbt build (not dbt test) must be used to ensure the model
+# is materialised before the test compiles. See test_all_adapters.ps1 / .sh.
+models:
+  - name: ut_expect_consistent_description_per_code_pass
+    description: >
+      Fixture with consistent code_category -> desc_category mapping.
+      The generic test must return 0 rows (PASS).
+    data_tests:
+      - lf_utils.expect_consistent_description_per_code
