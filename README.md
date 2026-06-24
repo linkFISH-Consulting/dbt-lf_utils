@@ -325,11 +325,10 @@ mkdir -p $(dirname $LF_UTILS__DUCKDB_DATAMART_PATH)
 # tests live in their own dbt project (this is a hard requirement of dbt)
 export DBT_PROJECT_DIR=./unit_tests
 dbt debug
-dbt build --select _dummy_source
-dbt test
+dbt build
 
 # one-liner
-DBT_PROFILE=lf_utils_mssql; DBT_PROJECT_DIR=./unit_tests; dbt debug; dbt build --select _dummy_source; dbt test
+DBT_PROFILE=lf_utils_mssql; DBT_PROJECT_DIR=./unit_tests; dbt debug; dbt build
 ```
 
 - stop db servers:
