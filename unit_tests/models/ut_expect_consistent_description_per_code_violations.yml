@@ -1,10 +1,19 @@
-# FAIL detection: assert the inner SQL logic of expect_consistent_description_per_code
-# returns the correct violation row when code_category 'A' has two different descriptions.
-unit_tests:
+# FAIL detection: the violations model calls the actual generic test macro against
+# the fixture and materialises its output. Generic tests then assert the exact
+# content of that output, verifying the full macro end-to-end (Jinja column
+# detection + SQL HAVING logic) without needing dbt's unit_tests framework
+# (which would mock the fixture as ephemeral, breaking get_filtered_columns_in_relation).
+models:
   - name: ut_expect_consistent_description_per_code_violations
-    model: ut_expect_consistent_description_per_code_violations
-    # No ref() / source() in the model SQL — all data is defined via inline CTEs.
-    given: []
-    expect:
-      rows:
-        - { code_column: code_category, desc_column: desc_category, code_value: A, unique_desc_count: 2 }
+    description: >
+      Fixture with INCONSISTENT code_category -> desc_category mapping.
+      The generic test should catch the violations. We invert the test
+      condition so the dbt pipeline passes ONLY if the test finds failures.
+    data_tests:
+      - lf_utils.expect_consistent_description_per_code:
+          config:
+            # INVERSION TRICK: 
+            # If the test returns 0 rows (it's broken and didn't catch the bad data), it errors.
+            # If the test returns >0 rows (it correctly caught the bad data), it passes.
+            error_if: "= 0"
+            warn_if: "= 0"

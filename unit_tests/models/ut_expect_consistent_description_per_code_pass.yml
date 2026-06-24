@@ -7,5 +7,5 @@ models:
     description: >
       Fixture with consistent code_category -> desc_category mapping.
       The generic test must return 0 rows (PASS).
-    tests:
+    data_tests:
       - lf_utils.expect_consistent_description_per_code
