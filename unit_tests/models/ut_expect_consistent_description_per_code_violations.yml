@@ -1,0 +1,10 @@
+# FAIL detection: assert the inner SQL logic of expect_consistent_description_per_code
+# returns the correct violation row when code_category 'A' has two different descriptions.
+unit_tests:
+  - name: ut_expect_consistent_description_per_code_violations
+    model: ut_expect_consistent_description_per_code_violations
+    # No ref() / source() in the model SQL — all data is defined via inline CTEs.
+    given: []
+    expect:
+      rows:
+        - { code_column: code_category, desc_column: desc_category, code_value: A, unique_desc_count: 2 }

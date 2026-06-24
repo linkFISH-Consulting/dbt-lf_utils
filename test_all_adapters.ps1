@@ -1,6 +1,3 @@
-# Check for --setup argument
-$runSetup = $args -contains "--setup"
-
 $adapters = @("duckdb", "mssql", "postgres")
 
 # Load all non-comment key=value pairs from a .env file into the current process environment.
@@ -55,33 +52,19 @@ function Install-DbtPackagesSafe {
     }
 }
 
-if ($runSetup) {
-    Import-DotEnv -Path 'config/.env'
-    docker compose --env-file config/.env -f ./docker-compose.yml up -d
+Import-DotEnv -Path 'config/.env'
+docker compose --env-file config/.env -f ./docker-compose.yml up -d
 
-    $env:DBT_PROJECT_DIR = './unit_tests'
-    Install-DbtPackagesSafe
-
-    # Setup dummy db and debug for each adapter
-    foreach ($adapter in $adapters) {
-        $env:DBT_PROFILE = "lf_utils_$adapter"
-        dbt debug
-        dbt build --select _dummy_source
-    }
-}
+$env:DBT_PROJECT_DIR = './unit_tests'
+Install-DbtPackagesSafe
 
 foreach ($adapter in $adapters) {
     # Reload env vars each iteration to match bash behaviour (set -a; source; set +a)
     Import-DotEnv -Path 'config/.env'
     $env:DBT_PROFILE = "lf_utils_$adapter"
     $env:DBT_PROJECT_DIR = './unit_tests'
-    # Use dbt build instead of dbt test: for DuckDB :memory: each dbt invocation starts
-    # a fresh DB, so models must be materialized and tested in the same command.
+    # dbt build materialises all models and runs all tests in one invocation.
+    # This is required for DuckDB :memory: where each separate dbt command
+    # starts a fresh empty database.
     dbt build
-}
-
-if ($runSetup) {
-    Write-Host "--------------------------------"
-    Write-Host "Docker containers left running for future runs. To stop:"
-    Write-Host "docker compose -f ./docker-compose.yml down"
 }
