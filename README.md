@@ -283,6 +283,16 @@ This section describes how to run the tests when working on the package.
 docker compose -f ./docker-compose.yml down
 ```
 
+**Windows (PowerShell):** use `test_all_adapters.ps1` instead — no `--setup` flag needed, setup runs automatically every time:
+
+```powershell
+.\test_all_adapters.ps1
+```
+
+The script handles two Windows-specific quirks automatically:
+- **Local package copy recursion** — dbt copies `local: ../` packages via `shutil.copytree` instead of symlinking (no symlink privilege by default on Windows). The script creates a filtered copy of the project outside the source tree so the destination is never inside the source.
+- **DuckDB `:memory:`** — uses `dbt build` (models and tests in one invocation) so the in-memory database is not discarded between steps. Set `LF_UTILS__DUCKDB_DATAMART_PATH` in `config/.env` to use a persistent file instead.
+
 - ... or to do it manually:
 
 - source the .env to make variables available:
