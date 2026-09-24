@@ -15,6 +15,7 @@ TODO: Think about localisation (Month names)
 - format: strftime format string (e.g. '%Y%m%d')
     currently supported placeholders:
     - %Y: year  (4 digits)
+    - %y: year  (2 digits)
     - %m: month (01-12)
     - %d: day (01-31)
     - %H: hour (00-23)
@@ -53,6 +54,7 @@ https://database.guide/template-patterns-modifiers-for-date-time-formatting-in-p
     {%- set pg_format = (
         format
         | replace("%Y", "YYYY")
+        | replace("%y", "YY")
         | replace("%m", "MM")
         | replace("%d", "DD")
         | replace("%H", "HH24")
@@ -77,6 +79,7 @@ https://database.guide/list-of-the-custom-date-time-format-strings-supported-by-
         {%- set mssql_format = (
             format
             | replace("%Y", "yyyy")
+            | replace("%y", "yy")
             | replace("%m", "MM")
             | replace("%d", "dd")
             | replace("%H", "HH")

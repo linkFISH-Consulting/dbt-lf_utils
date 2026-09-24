@@ -1,0 +1,26 @@
+unit_tests:
+  - name: ut_date_from_strftime
+    model: ut_date_from_strftime
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {text: "20210304"}
+    expect:
+      rows:
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}
+        - {output: "2021-03-04"}

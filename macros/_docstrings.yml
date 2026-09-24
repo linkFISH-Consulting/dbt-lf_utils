@@ -1,4 +1,4 @@
-# this file is auto-generated. last updated: 2026-06-24 15:24:21
+# this file is auto-generated. last updated: 2026-09-24 12:50:33
 
 version: 2
 
@@ -48,6 +48,9 @@ macros:
   - name: hour
     description: '{{ doc("macros__hour") }}'
 
+  - name: datetime_from_strftime
+    description: '{{ doc("macros__datetime_from_strftime") }}'
+
   - name: minute
     description: '{{ doc("macros__minute") }}'
 
@@ -62,6 +65,9 @@ macros:
 
   - name: date_to_string
     description: '{{ doc("macros__date_to_string") }}'
+
+  - name: date_from_strftime
+    description: '{{ doc("macros__date_from_strftime") }}'
 
   - name: default__generate_schema_name
     description: '{{ doc("macros_patches__default__generate_schema_name") }}'
