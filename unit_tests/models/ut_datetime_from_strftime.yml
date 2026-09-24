@@ -1,0 +1,13 @@
+unit_tests:
+  - name: ut_datetime_from_strftime
+    model: ut_datetime_from_strftime
+    given:
+      - input: ref('_dummy_source')
+        rows:
+          - {text: "2021-03-04 13:01:01"}
+    expect:
+      rows:
+        - {output: "2021-03-04 13:01:01"}
+        - {output: "2021-03-04 13:01:01"}
+        - {output: "2021-03-04 00:00:00"}
+        - {output: "2021-03-04 00:00:00"}

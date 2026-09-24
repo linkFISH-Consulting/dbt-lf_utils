@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - new Test: `expect_consistent_description_per_code` with included unit tests
 - option to easily build this on Windows
 - `date_strftime` now accepts `%y` as format option
+- new Macro: `date_from_strftime` to create date objects from strings.
+- new Macro: `datetime_from_strftime` to create timestamp objects from strings.
+  DuckDB is native, Postgress translation is solid, MSSQL is a bit hit-and miss
+  because they do not support arbitrary formats.
 
 ### Developer Notes
 - For the dev setup and CI: removed dependency on a local `data` folder for DuckDB: We use the In-Memory option now.
