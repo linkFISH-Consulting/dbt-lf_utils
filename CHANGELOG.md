@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - new Test: `expect_consistent_description_per_code` with included unit tests
 - option to easily build this on Windows
+- `date_strftime` now accepts `%y` as format option
 
 ### Developer Notes
 - For the dev setup and CI: removed dependency on a local `data` folder for DuckDB: We use the In-Memory option now.

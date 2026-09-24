@@ -1,5 +1,6 @@
 {% for format in [
     "%Y%m%d",
+    "%y%m%d",
     "%Y-%m-%d",
     "%Y/%m/%d",
     "%B %Y",
