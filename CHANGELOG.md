@@ -5,19 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] - Upcoming
+## [0.5.0] - Upcoming
 
 ### Added
 
-- new Test: `test_row_count` with included unit tests
-
-
-## [0.5.0] - 2026-06-24
-
-### Added
-
-- new Test: `expect_consistent_description_per_code` with included unit tests
-- option to easily build this on Windows
+- new Test: `test_row_count` to confirm that a table has a row count as specified
+- new Test: `expect_consistent_description_per_code` to check that every `desc_*`
+  has a unique mapping to their `code_*`
 - `date_strftime` now accepts `%y` as format option
 - new Macro: `date_from_strftime` to create date objects from strings.
 - new Macro: `datetime_from_strftime` to create timestamp objects from strings.
@@ -25,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   because they do not support arbitrary formats.
 
 ### Developer Notes
+- Fixes for developing lf_utils on Windows
 - For the dev setup and CI: removed dependency on a local `data` folder for DuckDB: We use the In-Memory option now.
 
 
